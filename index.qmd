@@ -1,7 +1,7 @@
 ---
-title: "Writing a great story for data science projects"
-subtitle: "This is a Report Template"
-author: "Students names (Advisor: Dr. Cohen)"
+title: "Writing a great story for data science projects - spring 2025"
+subtitle: "This is a Report Template Quarto"
+author: "Boiko Elena, Razo Jaquelin (Advisor: Dr. Cohen)"
 date: '`r Sys.Date()`'
 format:
   html:
@@ -56,7 +56,10 @@ non-linear relationship, kernel estimator or kernel smoothing is the
 main method to estimate the curve for non-parametric statistics. In
 kernel estimator, weight function is known as kernel function
 [@efr2008]. Cite this paper [@bro2014principal]. The GEE [@wang2014].
-The PCA [@daffertshofer2004pca]*
+The PCA [@daffertshofer2004pca]*. Topology can be used in machine
+learning [@adams2021topology]
+
+KNN may be used for diabetes prediction [@uddin2022comparative]. The [@uddin2022comparative] provides an insightful comparison of K-Nearest Neighbors (KNN) and its variants for disease prediction, showcasing the benefits of distance-weighted KNN in improving accuracy and robustness against noisy data.
 
 *This is my work and I want to add more work...*
 
