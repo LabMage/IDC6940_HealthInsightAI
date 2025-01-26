@@ -52,19 +52,27 @@ The introduction should:
 
 Example of writing including citing references:
 
-*This is an introduction to ..... regression, which is a non-parametric
-estimator that estimates the conditional expectation of two variables
-which is random. The goal of a kernel regression is to discover the
-non-linear relationship between two random variables. To discover the
-non-linear relationship, kernel estimator or kernel smoothing is the
-main method to estimate the curve for non-parametric statistics. In
-kernel estimator, weight function is known as kernel function
-[@efr2008]. Cite this paper [@bro2014principal]. The GEE [@wang2014].
+*This is an introduction to .....  The KNN set of rules is a simple but powerful machine learning set of rules used for
+categorization and regression. It's far a non-parametric approach that makes predictions based
+totally on the nearest k-neighbours in a dataset. KNN is widely used in healthcare and scientific
+studies to expect and classify sicknesses primarily based on the affected person’s data. The
+intention of this work is to predict the threat of growing type 2 diabetes using the KNN set of
+rules
+
 <<<<<<< HEAD
 The PCA [@daffertshofer2004pca]*. Topology can be used in machine
 learning [@adams2021topology]
 
-KNN may be used for diabetes prediction [@uddin2022comparative]. The [@uddin2022comparative] provides an insightful comparison of K-Nearest Neighbors (KNN) and its variants for disease prediction, showcasing the benefits of distance-weighted KNN in improving accuracy and robustness against noisy data.
+KNN may be used for diabetes prediction [@panwar2016k]. 
+
+The [@uddin2022comparative] provides an insightful comparison of K-Nearest Neighbors (KNN) and its variants for disease prediction, showcasing the benefits of distance-weighted KNN in improving accuracy and robustness against noisy data. 
+
+The study [@suriya2023type] showed that KNN performs better on smaller datasets, achieving higher accuracy and fewer false predictions when the data is reduced in size or preprocessed.
+
+The [@iparraguirre2023application]provides valuable insights into the application of ML models for diabetes prediction, demonstrating the effectiveness of K-NN and BNB in handling imbalanced datasets. The inclusion of SMOTE and PCA highlights the importance of preprocessing in improving model performance. 
+
+The use of the KNN imputer [@altamimi2024automated] significantly improves model performance, demonstrating its potential for medical datasets
+
 =======
 The PCA [@daffertshofer2004pca]*. Topology can be used in machine learning [@adams2021topology]
 >>>>>>> e2b4ef23a3b6d1e01ddf90e78672a80d4d5d4bd4
