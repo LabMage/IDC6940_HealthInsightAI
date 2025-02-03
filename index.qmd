@@ -20,6 +20,7 @@ execute:
 editor: 
   markdown: 
     wrap: 72
+  default-language: python
 ---
 
 Slides: [slides.html](slides.html){target="_blank"} ( Go to `slides.qmd`
@@ -76,6 +77,9 @@ The use of the KNN imputer [@altamimi2024automated] significantly improves model
 This comprehensive review [@syriopoulos2023k] discusses the strengths, weaknesses, applications, and recent developments of the k-Nearest Neighbors algorithm, offering a valuable resource for understanding its role in various data science tasks, including disease diagnosis.
 
 The study [@theerthagiri2022diagnosis] highlights the superior performance of the MLP algorithm, emphasizing deep learning techniques over traditional machine learning methods. While also using the Pima Indians Diabetes dataset, this study applies preprocessing techniques, feature selection, and model evaluation steps in more detail.
+
+The paper [@khateeb2017efficient] discusses the application of data mining techniques in healthcare, specifically for heart disease prediction using machine learning. The study highlights that previous heart disease prediction systems have used various medical parameters and data mining techniques, with accuracy depending on the dataset size and chosen features. The authors implement the K-Nearest Neighbor (K-NN) classifier for heart disease prediction, achieving approximately 80% accuracy using 14 attributes. Additionally, they compare K-NN with other classifiers, demonstrating its superior performance in this context.
+
 
 
 
@@ -175,3 +179,18 @@ ggplot1 = murders %>% ggplot(mapping = aes(x=population/10^6, y=total))
 -   Discuss the implications of your results.
 
 ## References
+
+```{python}
+
+```
+
+
+```{python}
+# Python code here
+print("This is a Python chunk in Quarto!")
+```
+```{r}
+
+```
+
+
