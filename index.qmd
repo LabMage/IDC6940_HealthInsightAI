@@ -1,8 +1,7 @@
 ---
-title: "Writing a great story for data science projects - spring 2025"
-subtitle: "This is a Report Template Quarto"
-
-author: "Boiko Elena & Razo Jaquelin (Advisor: Dr. Cohen)"
+title: "Diagnosing diseases using KNN- Spring 2025"
+subtitle: "An application of KNN to diagnose disease"
+author: "Jacqueline Razo & Elena Boiko (Advisor: Dr. Cohen)"
 date: '`r Sys.Date()`'
 format:
   html:
@@ -17,7 +16,6 @@ execute:
 editor: 
   markdown: 
     wrap: 72
-  default-language: python
 ---
 
 Slides: [slides.html](slides.html){target="_blank"} ( Go to `slides.qmd`
