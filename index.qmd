@@ -35,7 +35,7 @@ writing!
 KNN is an algorithm that is being used in a variety of fields to classify or predict data. The KNN algorithm is a simple algorithm that classifies data based on how similar a datapoint is to a class of datapoints. One of the benefits of using this algorithmic model is how simple it is to use and the fact it’s non-parametric which means it fits a wide variety of datasets. One drawback from using this model is that it does require a higher computational need than other models which means that it doesn’t perform as well on big data. Despite this, the model’s simplicity makes it easy to understand and easy to implement in a variety of fields. One such field is the field of healthcare where KNN models have been successfully used to predict diseases such as diabetes and hypertension. In this paper we will focus on its methodology and application in the field of healthcare to predict diabetes, a pressing public health problem. 
 
 ## Literature Review: 
-<<<<<<< HEAD
+
 
 ## Overview of machine learning
 Machine learning is a promising field where computers are able to learn from prior data to perform a function such as regression, classification or even create new values or images. KNNs have emerged as easy to understand algorithms that are able to perform regression, classification, data imputation and many other uses. 
@@ -65,7 +65,6 @@ The study of (Type 2 Diabetes Prediction using K-Nearest Neighbor Algorithm) sho
 
 The same findings about PCA influence on ML models implementation, and KNN in particular, showed in the research (Application of Machine Learning Models for Early Detection and Accurate Classification of Type 2 Diabetes). The authors compare the effectiveness of machine learning (ML) models, including K-Nearest Neighbors (K-NN), Bernoulli Naïve Bayes (BNB), Decision Tree (DT), Logistic Regression (LR), and Support Vector Machine (SVM), for early detection and classification of type 2 diabetes. While PCA significantly reduced accuracy for all models, the SMOTE-preprocessed dataset demonstrated the highest accuracy for the K-NN model (79.6%), followed by BNB with 77.2%. This reveals the importance of correct preprocessing techniques in improving KNN model accuracy, especially when handling imbalanced datasets. [@iparraguirre2023application]
 
-=======
 ## Overview of machine learning
 Machine learning is a promising field where computers are able to learn from prior data to perform a function such as regression, classification or even create new values or images. KNNs have emerged as easy to understand algorithms that are able to perform regression, classification, data imputation and many other uses. 
 
@@ -94,20 +93,13 @@ The study of (Type 2 Diabetes Prediction using K-Nearest Neighbor Algorithm) sho
 
 The same findings about PCA influence on ML models implementation, and KNN in particular, showed in the research (Application of Machine Learning Models for Early Detection and Accurate Classification of Type 2 Diabetes). The authors compare the effectiveness of machine learning (ML) models, including K-Nearest Neighbors (K-NN), Bernoulli Naïve Bayes (BNB), Decision Tree (DT), Logistic Regression (LR), and Support Vector Machine (SVM), for early detection and classification of type 2 diabetes. While PCA significantly reduced accuracy for all models, the SMOTE-preprocessed dataset demonstrated the highest accuracy for the K-NN model (79.6%), followed by BNB with 77.2%. This reveals the importance of correct preprocessing techniques in improving KNN model accuracy, especially when handling imbalanced datasets. [@iparraguirre2023application]
 
->>>>>>> e3502e0193a15c9aeec0847d7a9b0183759b740c
-Panwar et al. (K-nearest neighbor-based methodology for accurate diagnosis of diabetes mellitus) also demonstrated the critical role of data preprocessing and dimensionality reduction in improving the accuracy of KNN models for diabetes diagnosis. Their study found that by focusing on just two key features (BMI and Diabetes Pedigree Function) the model achieved its highest accuracy, sensitivity, and specificity after careful preprocessing. Comparative analyses showed that the proposed methodology outperformed other approaches, such as multi-layer neural networks (MLNNs) and Support Vector Machines (SVMs). Additionally, cross-validation confirmed the model's reliability, emphasizing the importance of proper data handling in the KNN model for diabetes classification [panwar2016k]
-
-
 Diagnosis of Diabetes Mellitus using K Nearest Neighbor Algorithm
-<<<<<<< HEAD
-=======
 
 The study (Comparative Performance Analysis of K-Nearest Neighbour (KNN) Algorithm and its Different Variants for Disease Prediction) compares different versions of the K-Nearest Neighbors (KNN) algorithm to see which one works best for disease prediction. The authors compare different versions of the K-Nearest Neighbors (KNN) algorithm to see which one works best for disease prediction. Researchers tested several KNN variants, including Weighted KNN, Distance-Weighted KNN, Hassanat KNN, and the Ensemble Approach KNN, on medical datasets of various sizes and complexities. Their goal was to understand how these variations perform under different medical conditions and whether they are suitable for real-world healthcare applications.
 The authors (Uddin et al.) found that distance-weighted KNN consistently outperformed the standard KNN, showing 85% accuracy on the heart disease dataset. This approach helped improve predictions by reducing the impact of noisy data. However, the study also pointed out a major drawback - KNN and its variants can be computationally expensive, especially when dealing with large datasets. Also, performance heavily depended on the choice of k and the distance metric, making fine-tuning essential.
 Facing these challenges, the authors suggested exploring assembled models that combine KNN with other machine-learning techniques for better efficiency and accuracy. [@uddin2022comparative]
 
 The effectiveness of KNN extends beyond diabetes classification, as shown in the study by Khateeb & Usman (Efficient Heart Disease Prediction System Using K-Nearest Neighbor Classification Technique ) on heart disease prediction. Their work demonstrates that feature selection and data balancing techniques significantly impact KNN’s classification performance. The authors evaluated different feature selection strategies, showing that removing irrelevant attributes (e.g., age, sex, fasting blood sugar) sometimes reduced accuracy rather than improving it. Research also reveals the importance of data resampling in improving accuracy. [@khateeb2017efficient]
->>>>>>> e3502e0193a15c9aeec0847d7a9b0183759b740c
 
 While standard KNN is effective, its performance varies depending on distance metrics, feature weighting, and hyperparameter selection. Uddin et al. (Comparative Performance Analysis of K-Nearest Neighbour (KNN) Algorithm and its Different Variants for Disease Prediction) explored KNN variants across multiple disease prediction tasks, including:
 Weighted KNN - assigns greater influence on closer neighbors.
@@ -118,12 +110,6 @@ Facing these challenges, the authors suggested exploring assembled models that c
 
 The effectiveness of KNN extends beyond diabetes classification, as shown in the study by Khateeb & Usman (Efficient Heart Disease Prediction System Using K-Nearest Neighbor Classification Technique ) on heart disease prediction. Their work demonstrates that feature selection and data balancing techniques significantly impact KNN’s classification performance. The authors evaluated different feature selection strategies, showing that removing irrelevant attributes (e.g., age, sex, fasting blood sugar) sometimes reduced accuracy rather than improving it. Research also reveals the importance of data resampling in improving accuracy. [@khateeb2017efficient]
 
-<<<<<<< HEAD
-=======
-=======
-
->>>>>>> e2b4ef23a3b6d1e01ddf90e78672a80d4d5d4bd4
->>>>>>> e3502e0193a15c9aeec0847d7a9b0183759b740c
 
 *This is my work and I want to add more work...*
 
