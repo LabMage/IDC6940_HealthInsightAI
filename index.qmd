@@ -195,8 +195,6 @@ ggplot1 = murders %>% ggplot(mapping = aes(x=population/10^6, y=total))
 
 ```
 
-### Conclusion
-
 -   Summarize your key findings.
 
 -   Discuss the implications of your results.
