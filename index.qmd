@@ -103,6 +103,7 @@ In turn, Uddin et al.[@uddin2022comparative] explored advanced KNN variants, inc
 
 Their findings suggest that KNN can be improved through modifications, but it remains highly sensitive to dataset size, feature selection, and distance metric choices. In large-scale healthcare applications, Decision Trees (DT) and ensemble models may offer better trade-offs between accuracy and efficiency.
 These studies highlight the ongoing debate over KNN’s role in medical classification - whether modifying KNN is the best approach or if other models, such as DT or ensemble learning, provide stronger performance for diagnosing diseases.
+
 ## Summary
 KNN continues to be a valuable tool in medical machine learning, offering simplicity and strong performance in classification tasks. However, as research shows, its effectiveness depends on proper feature selection, optimized K values, and preprocessing techniques like imputation. While KNN remains an interpretable and adaptable model, newer methods - such as ensemble learning and neural networks - often outperform it, particularly in large-scale datasets.
 For our capstone project, exploring feature selection, fine-tuning KNN’s settings, and comparing it to other algorithms could give us valuable insights into its strengths and limitations.
