@@ -109,14 +109,39 @@ KNN continues to be a valuable tool in medical machine learning, offering simpli
 For our capstone project, exploring feature selection, fine-tuning KNN’s settings, and comparing it to other algorithms could give us valuable insights into its strengths and limitations.
 
 
+# Methods
 
-*This is my work and I want to add more work...*
+The k-Nearest Neighbors (kNN) algorithm is a non-parametric, distance-based machine learning approach that classifies data points based on their similarity to labeled examples. It operates under the assumption that similar instances exist in close proximity within the feature space. The classification process follows three main steps:
+1.	## Distance Calculation:
+The algorithm measures the similarity between a new data point and all training instances using a distance metric. The most common choice is Euclidean distance, given by the formula:
 
-## Methods
 
--   Detail the models or algorithms used.
+$$
+M_n(x) = \sum_{i=1}^{n} W_n (X_i) Y_i  \tag{1}
+$$$W_n(x)$ *is the sum of weights that belongs to all real numbers.
 
--   Justify your choices based on the problem and data.
+*Where $X_2 - X_1$ calculates the horizontal difference and $Y_2 - Y_1$ calculates the vertical difference. These two distances are then squared to ensure they are positive regardless of which directionality. Squaring the distances also gives greater emphasis to larger distances.* 
+Other distance metrics, such as Manhattan distance, Minkowski distance, or cosine similarity, may also be used depending on the dataset and problem requirements [@kataria2013review].
+2.	## Neighbor Selection (k-value):
+The algorithm identifies the k closest data points to the new observation. The choice of k is crucial—
+A small k (e.g., k=1 or 3) increases sensitivity to noise, making the model prone to overfitting.
+A large k (e.g., k=20 or more) smooths the decision boundary but may lead to underfitting [@zhang2017efficient].
+Studies recommend using cross-validation or heuristic methods, such as setting k to the square root of the dataset size, to determine an optimal value [@syriopoulos2023k].
+3.	## Majority Voting (Classification Decision):
+Once the k-nearest neighbors are identified, the algorithm assigns the new data point the most frequent class label among its neighbors. In cases of ties, distance-weighted voting can be applied, where closer neighbors have higher influence on the classification decision [@uddin2022comparative].
+## Enhancements for kNN Performance in Medical Datasets
+While kNN is widely used for disease classification, including diabetes prediction, it has some limitations, particularly regarding computation time and sensitivity to high-dimensional data. Recent research suggests the following optimizations:
+### Feature Scaling:
+Since kNN relies on distance calculations, variables with larger ranges dominate those with smaller ones. MinMax Scaling or Standardization ensures that all features contribute equally to distance computations [@syriopoulos2023k].
+### Feature Selection & Dimensionality Reduction:
+High-dimensional datasets can lead to poor performance due to the curse of dimensionality. Methods such as Principal Component Analysis (PCA) and LASSO regression help retain the most relevant features while reducing noise in the data [@iparraguirre2023application].
+### Handling Class Imbalance:
+Imbalanced datasets, where one class significantly outnumbers the other (e.g., non-diabetic vs. diabetic cases), can bias kNN predictions. Techniques such as Synthetic Minority Over-sampling (SMOTE) can generate synthetic samples to balance class distributions [@suriya2023type].
+### Optimized Search Techniques:
+To improve efficiency for large datasets, kd-trees and Locality-Sensitive Hashing (LSH) help speed up nearest neighbor searches, making kNN feasible for big data applications [@deng2016efficient].
+
+
+
 
 *The common non-parametric regression model is*
 $Y_i = m(X_i) + \varepsilon_i$*, where* $Y_i$ *can be defined as the sum
@@ -144,7 +169,297 @@ $$
 
 ### Data Exploration and Visualization
 
--   Describe your data sources and collection process.
+We explored the CDC Diabetes Health Indicators dataset which was sourced from the UC Irvine Machine Learning Repository. This dataset was funded by the CDC in order to get insights into lifestyle factors and their relationship to diabetes. The data was imported using python code to install the ucimlrepo package. We used the import instructions listed on the UCI website. 
+
+The dataset includes 253,680 entries with 21 features and target variable, covering health indicators like high blood pressure, cholesterol levels, BMI, smoking habits, physical activity, and socioeconomic factors.
+
+### Loading the dataset
+
+To import the dataset, we used Python and the ucimlrepo package following the import instructions provided on the UCI website.
+
+Python Environment Details:
+
+Python Version: 3.9.16 (Conda)
+
+Architecture: 64-bit
+
+Key Libraries: numpy, pandas, matplotlib, seaborn
+
+The dataset was successfully loaded into a Pandas DataFrame and displayed to confirm its structure and correctness.
+
+```{r}
+# Load required R packages
+library(reticulate)  # Required for Python-R integration
+library(tidyverse)
+library(knitr)
+library(ggthemes)
+library(ggrepel)
+library(dslabs)
+
+# Set Python environment (update this with your path)
+use_python("C:\\Users\\Elena\\AppData\\Local\\R-MINI~1\\envs\\R-RETI~1\\python.exe", required = TRUE)
+
+# Confirm Python setup
+py_config()
+
+```
+
+
+```{r}
+# Install Python package if not available
+if (!py_module_available("ucimlrepo")) {
+  py_install("ucimlrepo")
+}
+
+# Load Python and fetch dataset
+py_run_string("
+import pandas as pd
+from ucimlrepo import fetch_ucirepo
+
+# Fetch dataset
+cdc_diabetes_health_indicators = fetch_ucirepo(id=891)
+
+# Convert to Pandas DataFrame
+df = pd.concat([cdc_diabetes_health_indicators.data.features, 
+                cdc_diabetes_health_indicators.data.targets], axis=1)
+
+# Save for R usage
+df.to_csv('diabetes_dataset.csv', index=False)
+")
+
+```
+
+### Displaying the first few rows.
+
+```{r}
+# Read the processed dataset into R
+df <- read.csv("diabetes_dataset.csv")
+
+# Show first rows
+head(df)
+
+```
+
+
+```{python}
+
+# variable information 
+print(cdc_diabetes_health_indicators.variables)
+
+```
+
+
+## Exploratory Data Analysis (EDA)
+
+
+```{python}
+
+# Display feature names
+print(cdc_diabetes_health_indicators.data.features.columns)
+
+# Display target (y) variable name
+print(cdc_diabetes_health_indicators.data.targets.columns)
+
+```
+```{python}
+import pandas as pd
+
+# Convert dataset to Pandas DataFrame
+df = pd.concat([cdc_diabetes_health_indicators.data.features, 
+                cdc_diabetes_health_indicators.data.targets], axis=1)
+
+# Show basic information
+df.info()  # Check column names & data types
+
+```
+
+
+
+
+```{python}
+
+# Display basic information about the dataset
+df_info = df.info()
+df_info
+
+```
+
+
+```{python}
+
+# Check for missing values
+missing_values = df.isnull().sum()
+
+missing_values
+
+```
+### Dataset Summary:
+
+Rows: 253,680
+Columns: 21 (all numerical, mostly categorical or ordinal)
+No missing values: All columns have full data.
+
+#### Feature types:
+
+Binary: HighBP, HighChol, CholCheck, Smoker, Stroke, HeartDiseaseorAttack, PhysActivity, Fruits, Veggies, HvyAlcoholConsump, AnyHealthcare, NoDocbcCost, DiffWalk, Sex
+
+Ordinal: GenHlth (1-5), Age (coded in categories 1-13), Education (1-6), Income (1-8)
+Continuous: BMI, MentHlth, PhysHlth
+
+
+
+```{python}
+
+# Get basic statistics
+df_stats = df.describe()
+df_stats
+
+```
+#### Key Findings from EDA
+
+Class Imbalance: Only 13.9% of people have diabetes, which suggests an imbalance in the target variable. This may require oversampling (SMOTE) or class weighting when training models.
+BMI and High Blood Pressure are Major Health Concerns:
+•	The average BMI is 28.38, close to the overweight range.
+•	43% of the population has high blood pressure, which is a known risk factor for diabetes.
+Physical Activity and Diet Indicators:
+•	75% of individuals engage in regular physical activity.
+•	81% eat vegetables regularly, and 63% eat fruits regularly, suggesting generally healthy dietary habits.
+Age and Income Influence Health Outcomes:
+•	Older individuals are more likely to develop diabetes.
+•	Higher income groups tend to report better health, which may correlate with healthcare access.
+
+
+## Visualizations for Exploration
+
+```{r}
+library(reticulate)
+
+# Install missing Python packages
+py_install("matplotlib")
+py_install("seaborn")
+
+```
+
+
+```{python}
+
+import sys
+import matplotlib
+import seaborn
+
+print(f"Python version: {sys.version}")
+print(f"Matplotlib version: {matplotlib.__version__}")
+print(f"Seaborn version: {seaborn.__version__}")
+
+```
+```{r}
+library(reticulate)
+
+# Install all required Python packages with correct names
+py_install(c("matplotlib", "seaborn", "pandas", "numpy", "scipy", "scikit-learn", "ipython"))
+
+
+```
+
+```{r}
+system('conda config --add channels defaults')
+
+```
+
+
+```{python}
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Ensure the target variable is correctly defined
+target_variable = "Diabetes_binary" if "Diabetes_binary" in df.columns else None
+
+## Plot BMI Distribution**
+plt.figure(figsize=(8, 5))
+sns.histplot(df["BMI"], bins=50, kde=True, color="blue")
+plt.title("BMI Distribution")
+plt.xlabel("BMI")
+plt.ylabel("Count")
+plt.show()
+
+
+```
+
+
+```{python}
+
+## Correlation Heatmap (Including Target Variable)**
+plt.figure(figsize=(12, 8))
+
+# Compute correlation only for numeric columns
+corr_matrix = df.corr(numeric_only=True)
+
+# Plot heatmap
+sns.heatmap(corr_matrix, annot=True, cmap="coolwarm", linewidths=0.5)
+plt.title("Feature Correlation Heatmap")
+plt.show()
+
+
+```
+
+
+
+
+```{python}
+
+##  Class Distribution of Target Variable (Diabetes_binary)**
+if target_variable:
+    plt.figure(figsize=(6, 4))
+    sns.countplot(x=df[target_variable], palette="Set2")
+    plt.title(f"Class Distribution of {target_variable}")
+    plt.xlabel("Diabetes Status (0 = No, 1 = Diabetes/Prediabetes)")
+    plt.ylabel("Count")
+    plt.show()
+else:
+    print("No target variable detected. Please confirm which column represents diabetes.")
+
+```
+
+
+
+## "BMI Distribution by Diabetes Status"
+
+```{python}
+
+## Boxplot of BMI by Diabetes Status**
+if target_variable:
+    plt.figure(figsize=(8, 5))
+    sns.boxplot(x=df[target_variable], y=df["BMI"], palette="Set3")
+    plt.title("BMI Distribution by Diabetes Status")
+    plt.xlabel("Diabetes Status (0 = No, 1 = Diabetes/Prediabetes)")
+    plt.ylabel("BMI")
+    plt.show()
+
+```
+
+
+```{python}
+
+
+
+
+
+```
+```{r}
+
+
+```
+
+
+
+```{python}
+
+
+```
+
+
+
 
 -   Present initial findings and insights through visualizations.
 
@@ -153,12 +468,7 @@ $$
 A study was conducted to determine how...
 
 ```{r, warning=FALSE, echo=T, message=FALSE}
-# loading packages 
-library(tidyverse)
-library(knitr)
-library(ggthemes)
-library(ggrepel)
-library(dslabs)
+
 ```
 
 ```{r, warning=FALSE, echo=TRUE}
@@ -201,17 +511,21 @@ ggplot1 = murders %>% ggplot(mapping = aes(x=population/10^6, y=total))
 
 ## References
 
-```{python}
+
 
 ```
+
+```{python}
+# variable information 
+print(cdc_diabetes_health_indicators.variables) 
+```
+
 
 
 ```{python}
 # Python code here
 print("This is a Python chunk in Quarto!")
 ```
-```{r}
 
-```
 
 
