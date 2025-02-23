@@ -119,12 +119,13 @@ The algorithm measures the similarity between a new data point and all training 
 
 $$
 d = \sqrt{(X_2 - X_1)^2 + (Y_2 - Y_1)^2} \tag{1}
-$$ **Where** \(X_2 - X_1\) calculates the horizontal difference and \(Y_2 - Y_1\) calculates the vertical difference. These two distances are then squared to ensure they are positive regardless of directionality. Squaring the distances also gives greater emphasis to larger distances. 
+$$ *Where* \(X_2 - X_1\) calculates the horizontal difference and \(Y_2 - Y_1\) calculates the vertical difference. These two distances are then squared to ensure they are positive regardless of directionality. Squaring the distances also gives greater emphasis to larger distances. 
 
 
 Other distance metrics, such as Manhattan distance, Minkowski distance, or cosine similarity, may also be used depending on the dataset and problem requirements [@kataria2013review].
 
-##2. Neighbor Selection (k-value):
+
+## 2. Neighbor Selection (k-value):
 
 The algorithm identifies the k closest data points to the new observation. The choice of k is crucial—
 A small k (e.g., k=1 or 3) increases sensitivity to noise, making the model prone to overfitting.
@@ -237,18 +238,8 @@ y = cdc_diabetes_health_indicators.data.targets
 ```
 
 
+
 ```{python, echo=FALSE}
-import pandas as pd
-
-# Combine into single DataFrame
-df = pd.concat([X, y], axis=1)
-
-# Display first few rows
-df.head()
-```
-
-
-```{python, echo=TRUE}
 
 import pandas as pd
 from ucimlrepo import fetch_ucirepo
@@ -267,8 +258,7 @@ df.head()  # this makes the output clean
 ### Displaying the first few rows.
 
 
-
-```{r}
+```{r, include=TRUE}
 # Read the processed dataset into R
 df <- read.csv("diabetes_dataset.csv")
 
@@ -277,6 +267,9 @@ head(df)
 
 ```
 
+This dataset is a large dataset that includes 253680 instances and has 21 feature variables and 1 binary target variable.
+
+## Variable information
 
 ```{python, echo=TRUE}
 
@@ -289,7 +282,7 @@ print(cdc_diabetes_health_indicators.variables)
 ## Exploratory Data Analysis (EDA)
 
 
-```{python, echo=TRUE}
+```{python, echo=FALSE}
 
 # Display feature names
 print(cdc_diabetes_health_indicators.data.features.columns)
@@ -327,14 +320,24 @@ df_info
 ```
 
 
-```{python, echo=TRUE}
+```{python}
 
-# Check for missing values
-missing_values = df.isnull().sum()
+# Get the count of nulls per column
+# Turns out we don't have any
+print("Nulls:")
+print(df.isnull().sum().sum())
+print("Na count:")
+print(df.isna().sum().sum())
+print("Duplicate rows:")
+print(df.duplicated(keep='first').sum())
 
-missing_values
+# In attempting to change total_charges from string to numeric I received an error that there were some
+#   values in there that were just ' ' -- a non-empty string that contains just a space. Now I'll formally detect it.
+print(df.columns[df.isin([' ']).any()])
 
 ```
+
+
 ### Dataset Summary:
 
 Rows: 253,680
@@ -343,11 +346,15 @@ Columns: 21 (all numerical, mostly categorical or ordinal)
 
 No missing values: All columns have full data.
 
+The dataset contains no missing values, but 24,206 duplicate rows were detected. These duplicates should be analyzed to determine whether they need removal or weighting to prevent redundancy in model training.
+
 #### Feature types:
 
-Binary: HighBP, HighChol, CholCheck, Smoker, Stroke, HeartDiseaseorAttack, PhysActivity, Fruits, Veggies, HvyAlcoholConsump, AnyHealthcare, NoDocbcCost, DiffWalk, Sex
+*Binary:* 
+HighBP, HighChol, CholCheck, Smoker, Stroke, HeartDiseaseorAttack, PhysActivity, Fruits, Veggies, HvyAlcoholConsump, AnyHealthcare, NoDocbcCost, DiffWalk, Sex
 
-Ordinal: GenHlth (1-5), Age (coded in categories 1-13), Education (1-6), Income (1-8)
+*Ordinal:*
+GenHlth (1-5), Age (coded in categories 1-13), Education (1-6), Income (1-8)
 Continuous: BMI, MentHlth, PhysHlth
 
 ## Summarize Statistical Properties
@@ -419,6 +426,8 @@ py_install(c("matplotlib", "seaborn", "pandas", "numpy", "scipy", "scikit-learn"
 system('conda config --add channels defaults')
 
 ```
+
+## Plot BMI Distribution
 
 
 ```{python, echo=TRUE}
@@ -543,25 +552,6 @@ A study was conducted to determine how...
 
 ```
 
-```{r, warning=FALSE, echo=TRUE}
-# Load Data
-kable(head(murders))
-
-ggplot1 = murders %>% ggplot(mapping = aes(x=population/10^6, y=total)) 
-
-  ggplot1 + geom_point(aes(col=region), size = 4) +
-  geom_text_repel(aes(label=abb)) +
-  scale_x_log10() +
-  scale_y_log10() +
-  geom_smooth(formula = "y~x", method=lm,se = F)+
-  xlab("Populations in millions (log10 scale)") + 
-  ylab("Total number of murders (log10 scale)") +
-  ggtitle("US Gun Murders in 2010") +
-  scale_color_discrete(name = "Region")+
-      theme_bw()
-  
-
-```
 
 ### Modeling and Results
 
