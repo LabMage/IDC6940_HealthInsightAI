@@ -251,8 +251,6 @@ cdc_diabetes_health_indicators = fetch_ucirepo(id=891)
 df = pd.concat([cdc_diabetes_health_indicators.data.features, 
                 cdc_diabetes_health_indicators.data.targets], axis=1)
 
-# Display the first few rows (without print)
-df.head()  # this makes the output clean
 ```
 
 ### Displaying the first few rows.
@@ -313,15 +311,6 @@ df.info()  # Check column names & data types
 
 ```{python, echo=TRUE}
 
-# Display basic information about the dataset
-df_info = df.info()
-df_info
-
-```
-
-
-```{python}
-
 # Get the count of nulls per column
 # Turns out we don't have any
 print("Nulls:")
@@ -331,9 +320,6 @@ print(df.isna().sum().sum())
 print("Duplicate rows:")
 print(df.duplicated(keep='first').sum())
 
-# In attempting to change total_charges from string to numeric I received an error that there were some
-#   values in there that were just ' ' -- a non-empty string that contains just a space. Now I'll formally detect it.
-print(df.columns[df.isin([' ']).any()])
 
 ```
 
