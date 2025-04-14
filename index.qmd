@@ -39,14 +39,14 @@ In this paper we will focus on the methodology and application of kNN
 models in the field of healthcare to predict diabetes, a pressing public
 health problem.
 
-## Literature Review
+### Literature Review
 
 The literature review explores the theoretical background of kNN and key
 factors affecting its performance. Recent advancements in optimizing kNN
 for large datasets and the role of kNN in medical diagnosis,
 particularly diabetes prediction.
 
-### Theoretical Background of KNN
+#### Theoretical Background of KNN
 
 kNNs are supervised learning algorithms that work by comparing a data
 point to other similar data points to label it. It works on the
@@ -96,7 +96,7 @@ distance can perform better for correlated features. The review
 emphasized that selecting the right metric is dataset-dependent,
 influencing classification accuracy.
 
-### Challenges in Scaling kNN for Large Datasets
+#### Challenges in Scaling kNN for Large Datasets
 
 While kNN is simple and effective, it struggles with computational
 inefficiency when working with large datasets since it must calculate
@@ -147,9 +147,9 @@ prior research rather than conducting empirical comparisons, further
 work is needed to evaluate these optimizations in real-world medical
 classification tasks.
 
-### kNN in Disease Prediction: Applications & Limitations
+#### kNN in Disease Prediction: Applications & Limitations
 
-#### Disease Prediction with kNN
+##### Disease Prediction with kNN
 
 kNN has been widely used for diabetes classification and early
 detection. Ali et al. [@ali2020diabetes] tested six different kNN
@@ -199,7 +199,7 @@ that removing irrelevant features did not always improve performance,
 emphasizing the need for careful feature engineering in medical
 datasets.
 
-### kNN Beyond Prediction: Handling Missing Data
+#### kNN Beyond Prediction: Handling Missing Data
 
 While kNN is widely known for classification, it also plays a key role
 in data preprocessing for medical machine learning. Altamimi et al.
@@ -217,7 +217,7 @@ such as computational costs and sensitivity to parameter selection,
 reinforcing the need for further optimization when applying kNN to
 large-scale medical datasets.
 
-### Comparing kNN Variants & Hybrid Approaches
+#### Comparing kNN Variants & Hybrid Approaches
 
 Research indicate that kNN works well for diabetes prediction, but
 recent studies demonstrate it doesn't consistently provide the best
@@ -281,7 +281,9 @@ find the 5 nearest neighbors illustrated by the green circle. From here
 the algorithm simply counts the number from each class and designates
 the class that represents the majority which in this case is a heart.
 
-![Figure 1](images/kNN_picture.png){width="400" height="400"}
+![Figure 1. Visual Example of k-Nearest Neighbors (kNN) Classification with k = 5](images/kNN_picture.png){width=400 height=400}
+
+The red square represents a data point to be classified. The algorithm selects the 5 nearest neighbors within the green circle—3 hearts and 2 circles. Based on the majority vote, the red square is classified as a heart.
 
 ### Classification process
 
@@ -341,12 +343,56 @@ text(mean(c(X1, X2)), mean(c(Y1, Y2)) -5,
 
 ```
 
+```{r}
+library(ggplot2)
+
+# Add points
+X1 <- 10; Y1 <- 12
+X2 <- 14; Y2 <- 16
+
+# Create base plot
+plot(c(X1, X2), c(Y1, Y2), type = "n",
+     xlab = "X-axis", ylab = "Y-axis",
+     main = "Figure 2: Euclidean and Manhattan Distances",
+     xlim = c(X1 - 4, X2 + 4), ylim = c(Y1 - 4, Y2 + 4))
+
+# Plot points
+points(X1, Y1, col = "red", pch = 16, cex = 2) 
+points(X2, Y2, col = "blue", pch = 16, cex = 2)
+
+# Add Manhattan path (green arrows)
+arrows(X1, Y1, X2, Y1, col = "darkgreen", lwd = 2, length = 0.1)  # horizontal
+arrows(X2, Y1, X2, Y2, col = "darkgreen", lwd = 2, length = 0.1)  # vertical
+
+# Add Euclidean line (dashed purple)
+segments(X1, Y1, X2, Y2, col = "purple", lwd = 2, lty = 2)
+
+# Point labels
+text(X1 - 0.5, Y1, labels = paste("(X1, Y1)\n(", X1, ",", Y1, ")"),
+     col = "red", cex = 0.8, pos = 2)
+text(X2 + 0.5, Y2, labels = paste("(X2, Y2)\n(", X2, ",", Y2, ")"),
+     col = "blue", cex = 0.8, pos = 4)
+
+# Euclidean distance label + arrow
+text((X1 + X2)/2 - 1, (Y1 + Y2)/2 + 2.5, "Euclidean Distance (d)", col = "purple", font = 2, cex = 1)
+arrows((X1 + X2)/2, (Y1 + Y2)/2 + 2, (X1 + X2)/2, (Y1 + Y2)/2 + 0.6,
+       col = "purple", lwd = 1.5, length = 0.1)
+
+# Manhattan label
+text(X2 + 1.5, Y1 + 0.5, "Manhattan\nDistance", col = "darkgreen", font = 2, cex = 0.9, pos = 4)
+
+# Euclidean distance formula
+text(mean(c(X1, X2)), mean(c(Y1, Y2)) - 4.5, 
+     labels = expression(d == sqrt((14 - 10)^2 + (16 - 12)^2)), 
+     col = "black", cex = 0.9)
+
+```
+
 *Figure 2 shows the euclidean distance formula where* $X_2 - X_1$
 calculates the horizontal difference and $Y_2 - Y_1$ calculates the
 vertical difference. These two distances are then squared to ensure they
 are positive regardless of which directionality it has. Squaring the
 distances also gives greater emphasis to larger distances.
-
 #### 2. Neighbor Selection
 
 The kNN allows the selection of a parameter k that is used by the
@@ -1337,6 +1383,12 @@ fpr_fs, tpr_fs, _ = roc_curve(y_test_fs, y_proba_fs)
 ```
 This version of kNN provided **the best trade-off between precision and recall**, suggesting that both feature selection and SMOTE contributed to more robust classification of diabetic cases.
 
+```{python, echo=FALSE, results='hide', message=FALSE, warning=FALSE}
+import joblib
+joblib.dump((y_test_fs, y_proba_fs), "knn_fs_roc_data.pkl")
+
+```
+
 
 #### Comparison of kNN Models with Different Configurations
 
@@ -1347,7 +1399,7 @@ library(kableExtra)
 
 # Create the unified comparison table
 knn_models <- data.frame(
-  Model = c("KNN 1", "KNN 2", "KNN 3", "KNN 4"),
+  Model = c("kNN 1", "kNN 2", "kNN 3", "kNN 4"),
   k = c(5, 15, 10, 15),
   Distance = c("Euclidean (p=2)", "Manhattan (p=1)", "Euclidean (p=2)", "Euclidean (p=2)"),
   Weights = c("Uniform", "Distance", "Uniform", "Distance"),
@@ -1547,10 +1599,9 @@ fpr_rf, tpr_rf, _ = roc_curve(y_test, y_proba_rf)
 
 ```
 
-```{python, results='hide'}
+```{python, echo=TRUE, results='hide', message=FALSE, warning=FALSE}
 
 import matplotlib.pyplot as plt
-
 plt.figure(figsize=(8, 6))
 
 plt.plot(fpr_fs, tpr_fs, label=f"KNN (Feature Selection) (AUC = {roc_auc_fs:.2f})")
@@ -1569,6 +1620,10 @@ plt.grid(True)
 plt.tight_layout()
 plt.show()
 
+```
+```{python, echo=FALSE, results='hide', message=FALSE, warning=FALSE}
+plt.savefig("roc_curve.png", dpi=300, bbox_inches="tight")
+plt.close()
 ```
 
 ## Conclusion

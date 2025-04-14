@@ -1,117 +1,601 @@
 ---
-title: "Present a great story for data science projects"
-subtitle: "This is a Slide Template"
-author: "Students names (Advisor: Dr. Cohen)"
-date: '`r Sys.Date()`'
+title: "Diagnosing Diseases Using kNN"
+subtitle: "Analyzing the Behavior and Performance of kNN in Predicting Diabetes"
+author: "Elena Boiko, Jacqueline Razo (Advisor: Dr. Cohen)"
+date: "`r Sys.Date()`"
 format:
-  revealjs
-course: Capstone Projects in Data Science
-bibliography: references.bib # file contains bibtex for references
-#always_allow_html: true # this allows to get PDF with HTML features
-self-contained: true
-execute: 
+  revealjs:
+    auto-stretch: true
+    scrollable: true
+    theme: serif
+    center-title-slide: true
+    title-slide-attributes:
+      data-background-size: contain
+      data-background-position: right
+    slide-number: true
+    toc: false
+    transition: fade
+    course: Capstone Projects in Data Science
+bibliography: references.bib
+self-contained: false
+execute:
   warning: false
   message: false
-editor: 
-  markdown: 
+editor:
+  markdown:
     wrap: 72
 ---
 
-::: callout-important
-**Remember:** Your goal is to make your audience understand and care
-about your findings. By crafting a compelling story, you can effectively
-communicate the value of your data science project.
+## 1.Introduction {.center}
 
-Carefully read this template since it has instructions and tips to
-writing!
+In healthcare, kNN has shown promise in predicting chronic diseases like
+**diabetes** and **hypertension**.
 
-More information about `revealjs`:
-<https://quarto.org/docs/reference/formats/presentations/revealjs.html>
+In this project, we focus on how kNN can be applied and optimized to
+predict **diabetes**, a critical and growing public health issue.
+
+## 2.Why This Matters {.center}
+
+<span class="fragment">- Diabetes affects millions worldwide. Early
+detection can improve outcomes.
+
+<span class="fragment">- Machine learning, especially interpretable
+models like **kNN**, can support diagnosis.
+
+<span class="fragment">- Our project explores:
+
+<span class="fragment">- How different **k values**, **distance metrics**, and
+    **preprocessing techniques** affect kNN’s performance.
+    
+<span class="fragment">- Whether kNN is competitive with other models for this task.
+
+::: notes
+Diabetes affects millions, and many cases go undiagnosed. Over 37
+million people in the U.S. have diabetes.With timely identification,
+complications can be reduced. Our goal was to see if kNN could serve as
+a lightweight tool for early screening using health data.
+
+We aim to understand the **methodology behind kNN**, test various
+**configurations**, and compare its predictive power to alternative
+models in real-world healthcare data.
 :::
 
-## Introduction  {.smaller}
+## 3.Why We Chose kNN for This Project
 
--   Develop a storyline that captures attention and maintains interest.
+<span class="fragment">Well-suited for medical datasets with small to
+medium size
 
--   Your audience is your peers
+<span class="fragment">Easy to interpret — great for health
+professionals
 
--   Clearly state the problem or question you're addressing.
+<span class="fragment">Flexible with minimal assumptions
 
--   Introduce why it is relevant needs.
+<span class="fragment">Can impute missing data and detect patterns
 
--   Provide an overview of your approach.
+::: notes
+kNN was a natural choice due to its effectiveness on structured datasets
+and intuitive logic. It’s often used in disease classification tasks,
+including diabetes prediction. We also used it for imputing missing
+values to improve overall data quality.
+:::
 
-In kernel estimator, weight function is known as kernel function
-[@efr2008]. Cite this paper [@bro2014principal]. The GEE [@wang2014].
-The PCA [@daffertshofer2004pca]\*
+## 4.Our Approach {.center}
 
-## Methods
+-   Clean and preprocess real-world survey data.
+-   Train kNN models with various configurations.
+-   Evaluate performance and compare with tree-based models.
 
--   Detail the models or algorithms used.
+::: notes
+In our project, we cleaned and processed the CDC’s diabetes health
+indicators dataset, applied kNN with different tuning settings, and
+compared its results with decision trees and random forests.
+:::
 
--   Justify your choices based on the problem and data.
+## 5.Method: kNN Overview {.center .middle}
 
 
+<span class="fragment">k-Nearest Neighbors (kNN) is a **non-parametric, instance-based** learning algorithm</span>
 
-## Data Exploration and Visualization
+<span class="fragment">It is a **lazy learner** — no explicit training phase is required</span>
 
--   Describe your data sources and collection process.
+<span class="fragment">Instead, it classifies new data based on similarity to existing labeled points</span>
 
--   Present initial findings and insights through visualizations.
+---
 
--   Highlight unexpected patterns or anomalies.
+### <span class="fragment">Classification Process:</span>
 
-## Data Exploration and Visualization {.smaller}
+<span class="fragment">**1. Distance Calculation:**  
+Measures similarity using metrics like **Euclidean** or **Manhattan** distance</span>
 
-A study was conducted to determine how...
+<span class="fragment">**2. Neighbor Selection:**  
+Hyperparameter **k** defines how many nearby points to consider</span>
 
-```{r, warning=FALSE, echo=F, message=FALSE}
-# loading packages 
-library(tidyverse)
-library(knitr)
-library(ggthemes)
-library(ggrepel)
-library(dslabs)
-```
+<span class="fragment">**3. Majority Voting:**  
+The most frequent class among the **k nearest neighbors** determines the prediction</span>
 
-```{r, warning=FALSE, echo=F}
-# Load Data
-#kable(head(murders))
+::: notes
+kNN is easy to implement and intuitive. Instead of learning a model, it
+makes decisions based on how close a new point is to others. For
+classification, it uses majority voting within the k nearest neighbors,
+found using a distance metric. We tested multiple k-values and distance
+functions, using scaling and SMOTE to improve results.
+:::
 
-ggplot1 = murders %>% ggplot(mapping = aes(x=population/10^6, y=total)) 
+## 6.Distance Calculation: {.smaller}
 
-  ggplot1 + geom_point(aes(col=region), size = 4) +
-  geom_text_repel(aes(label=abb)) +
-  scale_x_log10() +
-  scale_y_log10() +
-  geom_smooth(formula = "y~x", method=lm,se = F)+
-  xlab("Populations in millions (log10 scale)") + 
-  ylab("Total number of murders (log10 scale)") +
-  ggtitle("US Gun Murders in 2010") +
-  scale_color_discrete(name = "Region")+
-      theme_bw()
-  
+kNN identifies the nearest neighbors by calculating distances between points.
 
-```
+<div class="fragment">
 
-## Modeling and Results
+**Euclidean distance:**  
+$$
+d = \sqrt{(X_2 - X_1)^2 + (Y_2 - Y_1)^2}
+$$
 
--   Explain your data preprocessing and cleaning steps.
+</div>
 
--   Present your key findings in a clear and concise manner.
+<div class="fragment">
 
--   Use visuals to support your claims.
+**Manhattan distance:**  
+$$
+d = |X_2 - X_1| + |Y_2 - Y_1|
+$$
 
--   **Tell a story about what the data reveals.**
+</div>
 
+::: {style="text-align: center; margin-top: 1em;"}
 ```{r}
+library(ggplot2)
+
+# Add points
+X1 <- 10; Y1 <- 12
+X2 <- 14; Y2 <- 16
+
+# Create base plot
+plot(c(X1, X2), c(Y1, Y2), type = "n",
+     xlab = "X-axis", ylab = "Y-axis",
+     main = "Figure 2: Euclidean and Manhattan Distances",
+     xlim = c(X1 - 4, X2 + 4), ylim = c(Y1 - 4, Y2 + 4))
+
+# Plot points
+points(X1, Y1, col = "red", pch = 16, cex = 2) 
+points(X2, Y2, col = "blue", pch = 16, cex = 2)
+
+# Add Manhattan path (green arrows)
+arrows(X1, Y1, X2, Y1, col = "darkgreen", lwd = 2, length = 0.1)  # horizontal
+arrows(X2, Y1, X2, Y2, col = "darkgreen", lwd = 2, length = 0.1)  # vertical
+
+# Add Euclidean line (dashed purple)
+segments(X1, Y1, X2, Y2, col = "purple", lwd = 2, lty = 2)
+
+# Point labels
+text(X1 - 0.5, Y1, labels = paste("(X1, Y1)\n(", X1, ",", Y1, ")"),
+     col = "red", cex = 0.8, pos = 2)
+text(X2 + 0.5, Y2, labels = paste("(X2, Y2)\n(", X2, ",", Y2, ")"),
+     col = "blue", cex = 0.8, pos = 4)
+
+# Euclidean distance label + arrow
+text((X1 + X2)/2 - 1, (Y1 + Y2)/2 + 2.5, "Euclidean Distance (d)", col = "purple", font = 2, cex = 1)
+arrows((X1 + X2)/2, (Y1 + Y2)/2 + 2, (X1 + X2)/2, (Y1 + Y2)/2 + 0.6,
+       col = "purple", lwd = 1.5, length = 0.1)
+
+# Manhattan label
+text(X2 + 1.5, Y1 + 0.5, "Manhattan\nDistance", col = "darkgreen", font = 2, cex = 0.9, pos = 4)
+
+# Euclidean distance formula
+text(mean(c(X1, X2)), mean(c(Y1, Y2)) - 4.5, 
+     labels = expression(d == sqrt((14 - 10)^2 + (16 - 12)^2)), 
+     col = "black", cex = 0.9)
+
+```
+:::
+
+::: notes
+kNN works by finding the k closest data points to a new observation,
+based on a distance metric. We used Euclidean distance—shown here—which
+calculates the straight-line distance between points in
+multi-dimensional space.
+:::
+
+## 7.Classification Process {.center .middle}
+
+::::: columns
+::: {.column width="50%"}
+<span class="fragment">The red square represents a data point to be
+classified. The algorithm selects the 5 nearest neighbors within the
+green circle—3 hearts and 2 circles. Based on the majority vote, the red
+square is classified as a heart.
+:::
+
+::: {.column width="40%"}
+![Figure 1. kNN with k=5](images/kNN_picture.png)
+:::
+:::::
+
+::: notes
+This figure demonstrates how the kNN algorithm works in classification.
+The red square is the unknown data point, and k=5 is used to identify
+the five closest neighbors — in this case, majority are purple hearts,
+so it gets assigned to that class.
+
+Here’s how kNN works visually. When k=5, the algorithm looks at the five
+nearest points around a test sample. It assigns the most common label
+from those neighbors. This simple majority vote determines the class.
+:::
+
+## 8.Strengths and Weaknesses of kNN {.smaller}
+
+::::: columns
+::: {.column width="50%"}
+### Strengths
+
+- **Simple, intuitive, and non-parametric** — no assumptions about data distribution  
+- **No training phase** — the algorithm learns during prediction  
+- **Performs well** on small to medium datasets, especially when features are well-scaled  
+- **Easy to understand and implement** — ideal for baseline models or educational use
+:::
+
+::: {.column width="50%"}
+
+### Weaknesses of kNN 
+
+- **Slow prediction time** on large datasets due to distance calculations  
+- **Sensitive to feature scaling and distance metric choice**  
+- **Choosing the right 'k'** is critical — too low or high can reduce performance  
+- **Affected by irrelevant or correlated features**, which may distort neighbor similarity
+
+:::
+:::::
+
+## 9. Analysis and Results 
+
+### Data Source and Collection {.smaller}
+
+**Data Source:** CDC Diabetes Health Indicators
+
+Collected via the CDC’s Behavioral Risk Factor Surveillance System
+(BRFSS)
+
+Dataset contains 253,680 survey responses
+
+Covers 21 features: demographics, lifestyle, healthcare, and health
+history
+
+**Target:** Diabetes_binary
+
+(0 = No diabetes, 1 = Diabetes/Prediabetes)
+
+::: notes
+This dataset was sourced from the CDC's BRFSS program, one of the
+largest ongoing health surveys in the world. It includes over 250,000
+individuals and provides a rich set of features for modeling diabetes
+risk. The large size and variety of variables make it highly suitable
+for machine learning, especially for interpretable algorithms like kNN.
+:::
+
+## 10.Data Challenges {.smaller}
+
+**Data Integrity**\
+[️ No nulls or missing values found]{.fragment}\
+[24,206 duplicate rows removed to prevent redundancy]{.fragment}
+
+**Outliers**\
+[BMI, MentHlth, and PhysHlth had extreme upper values]{.fragment}\
+[Used scaling (StandardScaler / MinMaxScaler) to reduce
+impact]{.fragment}
+
+**Feature Scaling**\
+[️ Essential for kNN due to distance sensitivity]{.fragment}\
+[Standardized continuous variables to equalize influence]{.fragment}
+
+**Correlation Check**\
+[No strong multicollinearity detected (all r \< 0.5)]{.fragment}\
+[Kept all variables for modeling]{.fragment}
+
+**BMI Insights**\
+[Diabetic group trends toward higher BMI (\>30), but overlap
+exists]{.fragment}\
+[Used as a predictor along with other features]{.fragment}
+
+::: notes
+Before applying kNN, we had to ensure the dataset was clean and ready.
+Distance-based models like kNN are sensitive to scale and outliers. BMI,
+for example, had a wide range and could overpower other features, so we
+used scaling methods to create balance.
+:::
+
+## 11.Class Distribution: {.smaller}
+### Diabetes Class Imbalance {.smaller}
+
+::::: columns
+::: {.column width="50%"}
+**Key Points**\
+[Significant class imbalance observed]{.fragment}\
+[Majority class: No Diabetes (0) – **86.07%**]{.fragment}\
+[Minority class: Diabetes (1) – **13.93%**]{.fragment}
+
+**Impact on Modeling**\
+[Imbalance can bias predictions]{.fragment}\
+[Models may underpredict diabetes cases]{.fragment}
+:::
+
+::: {.column width="40%"}
+```{r setup, include=FALSE}
+library(reticulate)
+use_python("C:/Users/Elena/miniconda3/envs/myenv/python.exe", required = TRUE)
 
 ```
 
-## Conclusion
+```{python, echo=FALSE, results='hide', message=FALSE, warning=FALSE}
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
 
--   Summarize your key findings.
+# Real values
+class_counts = pd.Series({0: 218334, 1: 35346})
+class_percentages = class_counts / class_counts.sum() * 100
 
--   Discuss the implications of your results.
+# Plot
+plt.figure(figsize=(9, 6))
+ax = sns.barplot(x=class_counts.index, y=class_counts.values, palette=["#66c2a5", "#fc8d62"])
 
-## References
+# Smaller annotation text inside bars
+for i, value in enumerate(class_counts.values):
+    percentage = class_percentages[i]
+    ax.text(i, value - 15000, f"{value:,}\n({percentage:.2f}%)", 
+            ha="center", va="top", fontsize=10, fontweight='bold', color="white")
+
+# Title and axes
+plt.title("Figure 5: Class Distribution of Diabetes_binary", fontsize=16, fontweight='bold', pad=20)
+plt.ylabel("Count")
+plt.xlabel("Diabetes Status (0 = No, 1 = Diabetes/Prediabetes)")
+plt.xticks([0, 1], ["No Diabetes", "Diabetes/Prediabetes"])
+plt.ylim(0, max(class_counts.values) + 25000)
+
+plt.tight_layout()
+plt.show()
+
+```
+:::
+:::::
+
+## 12.Preparing the Data {.smaller}
+
+-   **Removed 24,206 duplicate rows**\
+    [Diabetic class increased from 13.9% → 15.3%]{.fragment}
+
+-   **Kept ordinal features as numeric**\
+    [Age, Education, Income, and GenHlth retained due to natural ordering]{.fragment}
+
+-   **Scaled continuous features**\
+    [BMI, MentHlth, PhysHlth scaled with StandardScaler & MinMaxScaler]{.fragment}
+
+-   **Handled class imbalance**\
+    [Applied SMOTE to generate synthetic diabetic samples]{.fragment}
+
+➡️ Final dataset: **clean, scaled, and balanced**
+
+::: notes
+First, we removed over 24,000 duplicate rows to reduce redundancy and
+potential bias. This was a surprisingly large number — almost 10% of the
+data — and keeping them could have skewed model training.
+
+Next, we retained certain features — like Age, Education, Income, and
+General Health — in their original numeric form. These are ordinal
+variables, meaning they have a natural order, so converting them to
+categories would’ve removed valuable structure.
+
+Then, we scaled continuous variables such as BMI, Mental Health days,
+and Physical Health days. We tested both StandardScaler and MinMaxScaler
+to find what worked best, especially for algorithms like kNN that are
+sensitive to feature scales.
+
+And finally, we addressed the class imbalance. Since the number of
+diabetes cases was much smaller than non-diabetes cases, we used SMOTE
+to synthetically generate minority samples, which gave our models a
+better chance at learning both classes equally.
+:::
+
+## 13.kNN Model Setup {.smaller}
+
+-   Explored different **k values**: 5, 10, 15\
+-   Compared **distance metrics**: Euclidean vs. Manhattan\
+-   Evaluated **weighting methods**: uniform vs. distance\
+-   Tested multiple **scaling techniques**\
+-   Included variations with **SMOTE** and **Feature Selection**
+
+::: {style="overflow-x: auto; font-size: 90%"}
+| Model | k   | Distance        | Weights  | Scaler         | SMOTE                   |
+|------------|------------|------------|------------|------------|------------|
+| kNN 1 | 5   | Euclidean (p=2) | Uniform  | StandardScaler | No                      |
+| kNN 2 | 15  | Manhattan (p=1) | Distance | RobustScaler   | No                      |
+| kNN 3 | 10  | Euclidean (p=2) | Uniform  | StandardScaler | Yes                     |
+| kNN 4 | 15  | Euclidean (p=2) | Distance | StandardScaler | Yes (Feature Selection) |
+:::
+
+::: notes
+To tune the kNN model, we tried different values of k, tested two
+weighting methods, and compared different scalers. We evaluated each
+combination using 5-fold cross-validation to ensure results weren’t
+dependent on a single data split.
+We tested four main variations of the kNN model by adjusting core
+parameters.\
+We varied the number of neighbors, distance metrics, and weighting
+methods.\
+We also tested scaling approaches and applied SMOTE to balance the
+classes.\
+The final model, kNN 4, included all enhancements and preprocessing
+strategies.
+:::
+
+## 14.Performance of kNN Variants {.smaller}
+#### Table 3: Performance Comparison of kNN Models {.no-title}
+
+::: {style="overflow-x: auto; font-size: 90%"}
+| Model | k | Distance | Weights | Scaler | SMOTE | Accuracy | ROC_AUC | Precision_1 | Recall_1 | F1_1 |
+|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|-------|
+| kNN 1 | 5 | Euclidean (p=2) | Uniform | StandardScaler | No | 0.83 | 0.70 | 0.41 | 0.21 | 0.27 |
+| kNN 2 | 15 | Manhattan (p=1) | Distance | RobustScaler | No | 0.84 | 0.75 | 0.45 | 0.16 | 0.23 |
+| kNN 3 | 10 | Euclidean (p=2) | Uniform | StandardScaler | Yes | 0.69 | 0.73 | 0.28 | 0.64 | 0.39 |
+| kNN 4 | 15 | Euclidean (p=2) | Distance | StandardScaler | Yes (FS) | 0.78 | 0.88 | 0.73 | 0.88 | 0.80 |
+:::
+
+- **Best configuration: kNN 4**  
+  [k = 15, Euclidean distance, distance weighting]{.fragment}  
+  [StandardScaler, SMOTE, and feature selection]{.fragment}
+
+- **Highest Weighted F1 Score: 0.80**  
+  [Achieved recall = 0.88, precision = 0.73]{.fragment}
+
+- 🩺 Most effective at identifying diabetic class (1)
+
+::: notes
+After testing several configurations, this fourth version of kNN gave us the best results. By using SMOTE, feature selection, scaling, and distance weighting, we reached a balanced F1 score of 0.80 — which is especially important when predicting diabetes. That’s why we selected this model for deployment
+
+We tested multiple kNN configurations.\
+The best performance came from kNN 4: k = 15, Euclidean distance,
+distance weighting, StandardScaler, with SMOTE and feature selection.\
+This model achieved an F1 score of 0.80, with excellent recall (0.88)
+and precision (0.73) for the diabetic class — our main focus.\
+It outperformed other variants that lacked either SMOTE, weighting, or
+scaling.
+
+We selected kNN 4 because it offered the best balance between recall and
+precision — especially important in healthcare.\
+It effectively handled class imbalance, captured minority class
+patterns, and was robust across different test conditions.
+:::
+
+## 15.Comparing kNN with Tree Models {.smaller}
+ 
+#### Table 4: Best kNN vs. Tree-Based Models {.no-title}
+
+::: {style="overflow-x: auto; font-size: 90%"}
+| Model         | SMOTE | Accuracy | ROC_AUC | Precision_1 | Recall_1 | F1_1 |
+|---------------|-------|----------|---------|-------------|----------|------|
+| KNN           | Yes   | 0.78     | 0.88    | 0.73        | 0.88     | 0.80 |
+| Decision Tree | Yes   | 0.72     | 0.80    | 0.70        | 0.78     | 0.74 |
+| Decision Tree | No    | 0.86     | 0.81    | 0.52        | 0.15     | 0.24 |
+| Random Forest | No    | 0.87     | 0.82    | 0.59        | 0.13     | 0.21 |
+:::
+
+
+<span class="fragment">- **kNN achieved the highest F1 score** (0.80)
+with strong recall on the diabetic class\
+
+<span class="fragment">- **Decision Tree with SMOTE** performed
+comparably but slightly lower on F1\
+
+<span class="fragment">- **Random Forest had highest accuracy**, but
+**poor recall** (0.13) shows it struggled to detect diabetic cases\
+
+Tree-based models offer interpretability, but
+may need tuning or resampling for minority detection
+
+::: notes
+While Random Forest appeared strong on accuracy, its recall was very low
+— it missed most diabetic cases, making it unsuitable as a clinical
+decision tool.\
+The Decision Tree with SMOTE was a solid competitor, but kNN ultimately
+provided a better balance between sensitivity and precision. We also ran
+decision trees and random forests for comparison. While random forest
+achieved higher accuracy, our tuned kNN performed better on F1,
+particularly for minority class recall. It’s a good example of how
+simpler models can still be highly effective.
+Tree-based models offer interpretability, but
+may need tuning or resampling for minority detection
+:::
+
+## 16.ROC_AUC curves comparison {.smaller}
+
+This plot compares the ROC curves for all four models.\
+kNN with Feature Selection performs best (AUC = 0.88), followed by
+Random Forest.
+
+![ROC Curve](roc_curve.png)
+
+::: notes
+For a two-class problem, a ROC curve allows us to visualize the
+trade-off between the rate at which the model can accurately recognize
+positive cases vs. the rate at which it mistakenly identifies negative
+cases as positive for different portions of the test set.
+
+This plot compares the ROC curves of all models tested.
+The **tuned kNN model** (with feature selection and SMOTE) achieved the
+**highest AUC = 0.88**, indicating the best balance between true and
+false positives.
+
+ROC curves visualize how well each model separates the classes across
+thresholds.
+A **higher curve** means better performance.
+The further from the diagonal, the **fewer false positives and false
+negatives**.
+
+Other models like **Random Forest (AUC = 0.82)** and **Decision Tree
+(AUC = 0.80–0.81)** performed well, but were outperformed by the
+optimized kNN.
+:::
+
+## 17. Conclusion:
+
+-   **kNN is effective** when tuned properly for large, imbalanced
+    datasets\
+-   Preprocessing strategies (scaling, SMOTE, feature selection) boosted
+    minority class detection\
+-   **kNN 4** achieved balanced recall and precision - critical for
+    clinical relevance\
+-   Tree-based models offered high accuracy but lacked sensitivity
+    without class rebalancing\
+-   Focused on **fairness** and **model behavior**, not just raw
+    accuracy
+
+::: notes
+Our goal was not just to build the most accurate model — but one that
+performs fairly and consistently across both classes.\
+This project shows how tuning kNN and applying thoughtful preprocessing
+allows it to compete with - and sometimes outperform - more complex
+models.
+
+To summarize, kNN worked surprisingly well when properly tuned. It was
+more accurate than decision trees in terms of F1 score and especially
+good at handling diabetes cases after applying oversampling and
+normalization.
+:::
+
+## 18. Implications for Healthcare Analytics {.smaller}
+
+-   High accuracy ≠ effective care — **recall matters most in clinical
+    settings**\
+-   False negatives in diabetes prediction risk delayed care and
+    long-term harm\
+-   kNN remains a **relevant, interpretable tool** when combined with
+    modern techniques\
+-   The methods used (SMOTE, scaling, tuning) apply broadly across
+    health-related ML tasks
+
+➡️ Future work: Apply this framework to other diseases, hybrid models,
+or live health system integration
+
+::: notes
+This project reinforces that even simple models like kNN can be
+powerful, as long as the data is prepared well. In a field like
+healthcare, where interpretability matters, this kind of approach could
+help improve early diagnosis and preventative care. In future work, we
+could apply this to new patient groups or explore ensemble methods.
+
+The lessons from this work go beyond diabetes — any imbalanced
+classification problem in healthcare could benefit from this approach.\
+Our framework is simple, scalable, and effective — and shows that even
+basic algorithms still have real value in today’s healthcare analytics
+landscape.
+:::
+
+## {.center .middle}
+
+<span style="font-size: 60px; font-weight: bold;">Thank you for listening!</span>  
+<span style="font-size: 42px;">Any questions?</span>  
+<span style="font-size: 24px;">Presented by Elena Boiko</span>
+
+::: notes
+Thank you, and I’m happy to answer any questions you may have!
+:::
