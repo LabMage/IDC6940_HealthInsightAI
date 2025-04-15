@@ -1,6 +1,6 @@
 ---
 title: "Diagnosing Diseases using kNN"
-subtitle: "Analyzing the Behavior and Performance of kNN in Predicting Diabetes"
+subtitle: "An Application of kNN to Diagnose Diabetes"
 author: "Elena Boiko, Jacqueline Razo (Advisor: Dr. Cohen)"
 date: '`r Sys.Date()`'
 format:
