@@ -25,9 +25,7 @@ editor:
   markdown:
     wrap: 72
 ---
-::: notes
-Hello everyone, thank you for joining our presentation today. Our capstone project is focused on applying the k-Nearest Neighbors algorithm—or kNN—for disease diagnosis, specifically targeting diabetes prediction.
-:::
+
 
 ## Introduction {.center}
 
@@ -494,18 +492,15 @@ Random Forest and Decision Tree performed reasonably well, but neither matched k
 This supports the idea that a well-tuned kNN model can be both accurate and clinically effective.
 :::
 
-## Conclusion:
+## Conclusion {.smaller}
 
--   **kNN is effective** when tuned properly for large, imbalanced
-    datasets\
--   Preprocessing strategies (scaling, SMOTE, feature selection) boosted
-    minority class detection\
--   **kNN 4** achieved balanced recall and precision - critical for
-    clinical relevance\
--   Tree-based models offered high accuracy but lacked sensitivity
-    without class rebalancing\
--   Focused on **fairness** and **model behavior**, not just raw
-    accuracy
+- This project demonstrated that the **k-Nearest Neighbors (kNN)** algorithm can be an effective tool for disease prediction when properly tuned and supported by strong preprocessing.\
+
+- Despite its simplicity, kNN achieved competitive results through careful configuration — including scaling, handling class imbalance, and feature selection.\
+
+- Its interpretability, flexibility, and performance make it a practical choice in healthcare settings, where fairness and transparency are essential.\
+
+- Ultimately, this work highlights how even basic algorithms, when thoughtfully applied, can deliver meaningful insights in real-world medical data.\
 
 ::: notes
 In conclusion, our study shows that kNN is a strong candidate for disease prediction, especially when transparency and recall are priorities.
@@ -513,33 +508,38 @@ With thoughtful tuning, scaling, and SMOTE, kNN outperformed tree-based models i
 Despite being simple, it handled the diabetes prediction task very well - especially after reducing dimensional noise and balancing the data.
 :::
 
-## Implications for Healthcare Analytics {.smaller}
+## References {.smaller .scrollable}
 
--   High accuracy ≠ effective care — **recall matters most in clinical
-    settings**\
--   False negatives in diabetes prediction risk delayed care and
-    long-term harm\
--   kNN remains a **relevant, interpretable tool** when combined with
-    modern techniques\
--   The methods used (SMOTE, scaling, tuning) apply broadly across
-    health-related ML tasks
+Ali, AMEER, MOHAMMED Alrubei, LF Mohammed Hassan, M Al-Ja’afari, and Saif Abdulwahed. 2020. “Diabetes Classification Based on KNN.” IIUM Engineering Journal 21 (1): 175–81.
 
-➡️ Future work: Apply this framework to other diseases, hybrid models,
-or live health system integration
+Altamimi, Abdulaziz, Aisha Ahmed Alarfaj, Muhammad Umer, Ebtisam Abdullah Alabdulqader, Shtwai Alsubai, Tai-hoon Kim, and Imran Ashraf. 2024. “An Automated Approach to Predict Diabetic Patients Using KNN Imputation and Effective Data Mining Techniques.” BMC Medical Research Methodology 24 (1): 221.
 
-::: notes
-In healthcare, recall matters more than accuracy — missing a diagnosis can delay treatment and cause harm.
-Our project shows that kNN remains a relevant and interpretable tool, especially when combined with modern preprocessing techniques like SMOTE and scaling.
-These methods can be extended beyond diabetes - to other diseases, patient risk scoring, or even real clinical systems.
-With proper design, even simple algorithms like kNN can help improve early detection and support better care.
-:::
+Boateng, Emmanuel B. 2020. “Basic Concept of Classification Algorithms for Machine Learning.” ResearchGate. https://doi.org/10.13140/RG.2.2.23226.08648.
 
-## {.center .middle}
+Deng, Zhenyun, Xiaoshu Zhu, Debo Cheng, Ming Zong, and Shichao Zhang. 2016. “Efficient kNN Classification Algorithm for Big Data.” Neurocomputing 195: 143–48.
 
-<span style="font-size: 60px; font-weight: bold;">Thank you for listening!</span>  
-<span style="font-size: 42px;">Any questions?</span>  
-<span style="font-size: 24px;">Presented by Elena Boiko</span>
+Iparraguirre-Villanueva, Orlando, Karina Espinola-Linares, Rosalynn Ornella Flores Castañeda, and Michael Cabanillas-Carbonell. 2023. “Application of Machine Learning Models for Early Detection and Accurate Classification of Type 2 Diabetes.” Diagnostics 13 (14): 2383.
 
-::: notes
-Thank you, and I’m happy to answer any questions you may have!
-:::
+Kataria, Aman, and MD Singh. 2013. “A Review of Data Classification Using k-Nearest Neighbour Algorithm.” International Journal of Emerging Technology and Advanced Engineering 3 (6): 354–60.
+
+Khateeb, Nida, and Muhammad Usman. 2017. “Efficient Heart Disease Prediction System Using k-Nearest Neighbor Classification Technique.” In Proceedings of the International Conference on Big Data and Internet of Thing, 21–26.
+
+Mucherino, Antonio, Petraq J Papajorgji, Panos M Pardalos, Antonio Mucherino, Petraq J Papajorgji, and Panos M Pardalos. 2009. “K-Nearest Neighbor Classification.” Data Mining in Agriculture, 83–106.
+
+Panwar, Madhuri, Amit Acharyya, Rishad A Shafik, and Dwaipayan Biswas. 2016. “K-Nearest Neighbor Based Methodology for Accurate Diagnosis of Diabetes Mellitus.” In 2016 Sixth International Symposium on Embedded Computing and System Design (ISED), 132–36. IEEE.
+
+Saxena, Krati, Zubair Khan, and Shefali Singh. 2014. “Diagnosis of Diabetes Mellitus Using k Nearest Neighbor Algorithm.” International Journal of Computer Science Trends and Technology (IJCST) 2 (4): 36–43.
+
+Suriya, S, and J Joanish Muthu. 2023. “Type 2 Diabetes Prediction Using k-Nearest Neighbor Algorithm.” Journal of Trends in Computer Science and Smart Technology 5 (2): 190–205.
+
+Syriopoulos, Panos K, Nektarios G Kalampalikis, Sotiris B Kotsiantis, and Michael N Vrahatis. 2023. “K NN Classification: A Review.” Annals of Mathematics and Artificial Intelligence, 1–33.
+
+Theerthagiri, Prasannavenkatesan, A Usha Ruby, and J Vidya. 2022. “Diagnosis and Classification of the Diabetes Using Machine Learning Algorithms.” SN Computer Science 4 (1): 72.
+
+Uddin, Shahadat, Ibtisham Haque, Haohui Lu, Mohammad Ali Moni, and Ergun Gide. 2022. “Comparative Performance Analysis of k-Nearest Neighbour (KNN) Algorithm and Its Different Variants for Disease Prediction.” Scientific Reports 12 (1): 6256.
+
+Zhang, Shichao, Xuelong Li, Ming Zong, Xiaofeng Zhu, and Ruili Wang. 2017. “Efficient kNN Classification with Different Numbers of Nearest Neighbors.” IEEE Transactions on Neural Networks and Learning Systems 29 (5): 1774–85.
+
+Zhang, Zhongheng. 2016. “Introduction to Machine Learning: K-Nearest Neighbors.” Annals of Translational Medicine 4 (11).
+
+
