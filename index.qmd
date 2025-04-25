@@ -374,8 +374,7 @@ neighbors have higher influence on the classification decision
 ### Assumptions
 
 The k-Nearest Neighbors (kNN) algorithm operates under the assumption that data points with similar features exist in close proximity within the feature space and are therefore likely to belong to the same class [@boateng2020basic].
-
-
+ 
 ### Implementation of kNN
 
 ```{r, include=FALSE}
@@ -507,11 +506,10 @@ library(reticulate)
 # Tell reticulate to use the correct Python environment
 use_python("C:/Users/Elena/miniconda3/envs/myenv/python.exe", required = TRUE)
 
-# Install necessary packages into myenv (only if needed)
+# Install necessary packages into myenv (if needed)
 py_install(c("pandas", "ucimlrepo", "scipy", "scikit-learn", "imbalanced-learn"))
 
 ```
-
 
 ```{python}
 from ucimlrepo import fetch_ucirepo 
@@ -547,7 +545,6 @@ library(knitr)
 cdc_data_df <- read_csv("cdc_data.csv", show_col_types = FALSE)
 kable(head(cdc_data_df), caption = "Table 1. The First Few Raw of CDC Diabetes Dataset")
 ```
-
 
 #### Feature Overview & Data Encoding
 
@@ -763,7 +760,6 @@ Outliers can mislead distance calculations, making certain data points appear ab
 
 Applying these transformations ensures the distance metric used in kNN remains balanced and sensitive to meaningful differences across all feature dimensions.
 
-
 ##### Class Imbalance in Diabetes Prevalence
 
 A critical issue in classification problems is **target class imbalance**. For our `Diabetes_binary` variable, the majority class (No Diabetes) comprises over 86% of the dataset, while the minority class (Diabetes/Prediabetes) represents only about 14%.
@@ -828,7 +824,7 @@ plt.show()
 As individuals report poorer general health, they experience more
 physical health issues and mobility limitations.
 
-• *Physical Health (PhysHlth) and Difficulty Walking (DiffWalk)* (0.47)
+• *Physical Health (PhysHlth)* and *Difficulty Walking (DiffWalk)* (0.47)
 show a strong link. Those with more days of poor physical health are
 likely to struggle with mobility.
 
@@ -836,7 +832,7 @@ likely to struggle with mobility.
 Cholesterol* (0.27), indicating an increased risk of cardiovascular
 conditions as people get older.
 
-• *Mental Health (MentHlth) and Physical Health (PhysHlth)* (0.34) are
+• *Mental Health (MentHlth)* and *Physical Health (PhysHlth)* (0.34) are
 positively associated. Worsening mental health often coincides with
 physical health problems.
 
@@ -887,7 +883,7 @@ plt.tight_layout()
 plt.show()
 
 ```
-As expected, the prevalence of diabetes increases with age. This distribution confirms the importance of **age as a predictive feature** and suggests that older adults are at higher risk — aligning with clinical and epidemiological findings.
+As expected, the prevalence of diabetes increases with age. This distribution confirms the importance of *age as a predictive feature* and suggests that older adults are at higher risk — aligning with clinical and epidemiological findings.
 
 **BMI Distribution:**
 
@@ -1034,7 +1030,7 @@ To mitigate the impact of class imbalance, Synthetic Minority Over-sampling Tech
 
 The preprocessing pipeline ensured a clean, balanced, and distance-aware feature space for modeling and evaluation.
 
-#### Train and Evaluate kNN Models
+#### Training and Evaluating kNN Models
 
 **kNN 1: Baseline Model - Imbalanced Data**
 
