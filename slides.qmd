@@ -358,6 +358,7 @@ plt.tight_layout()
 plt.show()
 
 ```
+
 :::
 :::::
 
@@ -483,7 +484,7 @@ This plot compares the ROC curves for all four models.\
 kNN with Feature Selection performs best (AUC = 0.88), followed by
 Random Forest.
 
-![ROC Curve](roc_curve.png)
+![ROC Curve](slides_files/roc_curve.png)
 
 ::: notes
 This ROC curve shows how well each model separates diabetic from non-diabetic cases.

@@ -1503,7 +1503,6 @@ def plot_roc_auc():
     plt.show()
 
 plot_roc_auc()
-
 ```
 ```{python, echo=FALSE, results='hide', message=FALSE, warning=FALSE}
 plt.savefig("roc_curve.png", dpi=300, bbox_inches="tight")
