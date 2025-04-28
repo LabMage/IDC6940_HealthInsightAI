@@ -37,16 +37,11 @@ such field is the field of healthcare where kNN models have been
 successfully used to predict diseases such as diabetes and hypertension.
 In this paper we will focus on the methodology and application of kNN
 models in the field of healthcare to predict diabetes, a pressing public
-health problem.
+health problem. 
 
-### Literature Review
+To better understand the role of kNN in healthcare applications, it is important to first review its theoretical foundations, the key factors affecting its performance, and recent advancements in optimizing kNN for large datasets and medical diagnosis, particularly for diabetes prediction.
 
-The literature review explores the theoretical background of kNN and key
-factors affecting its performance. Recent advancements in optimizing kNN
-for large datasets and the role of kNN in medical diagnosis,
-particularly diabetes prediction.
-
-#### Theoretical Background of KNN
+#### Theoretical Background of kNN
 
 kNNs are supervised learning algorithms that work by comparing a data
 point to other similar data points to label it. It works on the
@@ -199,7 +194,7 @@ that removing irrelevant features did not always improve performance,
 emphasizing the need for careful feature engineering in medical
 datasets.
 
-#### kNN Beyond Prediction: Handling Missing Data
+##### kNN Beyond Prediction: Handling Missing Data
 
 While kNN is widely known for classification, it also plays a key role
 in data preprocessing for medical machine learning. Altamimi et al.
@@ -217,7 +212,7 @@ such as computational costs and sensitivity to parameter selection,
 reinforcing the need for further optimization when applying kNN to
 large-scale medical datasets.
 
-#### Comparing kNN Variants & Hybrid Approaches
+##### Comparing kNN Variants & Hybrid Approaches
 
 Research indicate that kNN works well for diabetes prediction, but
 recent studies demonstrate it doesn't consistently provide the best
@@ -266,13 +261,13 @@ its strengths and limitations.
 ## Methods
 
 The kNN algorithm is a nonparametric supervised learning algorithm that
-can be used for classification or regression problems.
-[@syriopoulos2023k] In classification, it works on the assumption that
+can be used for classification or regression problems
+[@syriopoulos2023k]. In classification, it works on the assumption that
 similar data is close to each other in distance. It classifies a
 datapoint by using the euclidean distance formula to find the nearest k
 data specified. Once these k data points have been found, the kNN
 assigns a category to the new datapoint based off the category with the
-majority of the data points that are similar. [@zhang2016introduction].
+majority of the data points that are similar [@zhang2016introduction].
 Figure 1 illustrates this methodology with two distinct classes of
 hearts and circles. The knn algorithm is attempting to classify the
 mystery figure represented by the red square. The k parameter is set to
@@ -296,7 +291,7 @@ The kNN algorithm first calculates the distance between the data point it’s tr
 $$
 d = \sqrt{(X_2 - X_1)^2 + (Y_2 - Y_1)^2}
 $$
-**Figure 2** shows the euclidean distance formula where $X_2 - X_1$ calculates the horizontal difference and $Y_2 - Y_1$ calculates the vertical difference. These two distances are then squared to ensure they are positive regardless of which directionality it has. Squaring the distances also gives greater emphasis to larger distances.
+Figure 2 shows the euclidean distance formula where $X_2 - X_1$ calculates the horizontal difference and $Y_2 - Y_1$ calculates the vertical difference. These two distances are then squared to ensure they are positive regardless of which directionality it has. Squaring the distances also gives greater emphasis to larger distances.
 
 ```{r}
 library(ggplot2)
@@ -348,7 +343,7 @@ $$
 d = |X_2 - X_1| + |Y_2 - Y_1|
 $$
 
-Unlike Euclidean distance, Manhattan distance follows a grid-like path (horizontal + vertical in Figure 2), making it more suitable for certain types of structured data or when outliers need to be minimized in influence.
+Unlike Euclidean distance, Manhattan distance follows a grid-like path (horizontal + vertical in Figure 2), making it more suitable for certain types of structured data or when outliers need to be minimized in influence [@aggarwal2015data].
 
 ##### 2. Neighbor Selection
 
@@ -457,8 +452,7 @@ parameters that we can adjust.
 1.  Find the optimal k parameter: We can use gridsearch to find the best
     parameter k.
 2.  Change the distance metric: The kNN uses the euclidean distance by
-    default but we can use the Manhattan distance, the Minkowski
-    distance or another distance.
+    default but we can use the Manhattan distance, or another distance.
 3.  Weights: The kNN defaults to a "uniform" weight where it gives the
     same weight to all the distances but it can be adjusted to
     "distance" so that the closest neighbors have more weight.
@@ -546,13 +540,13 @@ cdc_data_df <- read_csv("cdc_data.csv", show_col_types = FALSE)
 kable(head(cdc_data_df), caption = "Table 1. The First Few Raw of CDC Diabetes Dataset")
 ```
 
-#### Feature Overview & Data Encoding
+#### Feature Overview 
 
-The variables fall into **four types**, each encoded to preserve meaning and support distance-based modeling:
+The variables fall into *four types*, each encoded to preserve meaning and support distance-based modeling:
 
 **1. Target Variable (1)**
 
-- `Diabetes_binary`: Binary classification (0 = No diabetes, 1 = Diabetes/prediabetes)
+- *Diabetes_binary*: Binary classification (0 = No diabetes, 1 = Diabetes/prediabetes)
 
 **2. Binary Variables (14)**  
 Encoded as 0 = No, 1 = Yes (except for `Sex`: 0 = Female, 1 = Male) 
@@ -573,7 +567,7 @@ Encoded using ranked integers to reflect meaningful progression:
 
 **4. Continuous Variable (1)** 
 
-- `BMI`: Numeric value for Body Mass Index
+- *BMI*: Numeric value for Body Mass Index
 
 The table below provides a detailed breakdown of variable types, descriptions, and value ranges.
 
@@ -630,7 +624,6 @@ kable(table_data, caption = "Table 1. Summary of Explanatory Variables", align =
 
 ```
 
-### Exploratory Data Analysis (EDA)
 
 ```{python, echo=FALSE}
 
@@ -647,7 +640,7 @@ y = cdc_diabetes_health_indicators.data.targets
 cdc_data_df = pd.concat([cdc_diabetes_health_indicators.data.features, 
                          cdc_diabetes_health_indicators.data.targets], axis=1)
                          
-exploratory_data_analysis = { "Exploratory Data Analysis": ["Number of Nulls", "Missing Data", "Duplicate Rows", "Total Rows"], "Count": [cdc_data_df.isna().sum().sum(), (cdc_data_df == " ").sum().sum(), cdc_data_df.duplicated().sum(), cdc_data_df.shape[0]]}
+exploratory_data_analysis = { "Data Quality Check": ["Number of Nulls", "Missing Data", "Duplicate Rows", "Total Rows"], "Count": [cdc_data_df.isna().sum().sum(), (cdc_data_df == " ").sum().sum(), cdc_data_df.duplicated().sum(), cdc_data_df.shape[0]]}
 
 exploratory_data_analysis_df=pd.DataFrame(exploratory_data_analysis)
 
@@ -679,7 +672,7 @@ But 24,206 duplicate records were detected, which need to be analyzed to
 determine whether they need removal or weighting to prevent redundancy
 in model training.
 
-#### Statistical Summary & Variable Distribution
+### Exploratory Data Analysis (EDA)
 
 To effectively prepare data for a distance-based model like k-Nearest Neighbors (kNN), it's critical to understand the statistical properties of the features - including scale, variability, and the presence of outliers.
 
@@ -689,11 +682,11 @@ df_stats = cdc_data_df.describe()
 print(df_stats)
 
 ```
-Figures 3 and 4 summarize the central tendencies and distributional characteristics of selected **ordinal** and **continuous** variables: `GenHlth`, `MentHlth`, `PhysHlth`, `Age`, `Education`, `Income`, `BMI`
+**Figures 3** and **4** summarize the central tendencies and distributional characteristics of selected **ordinal** and **continuous** variables: *GenHlth, MentHlth, PhysHlth, Age, Education, Income, BMI*
 
-##### Summary Statistics Heatmap
+#### Summary Statistics Heatmap
 
-The heatmap below (Figure 3) presents descriptive statistics for each variable, including mean, standard deviation, min/max, and quartiles.
+The heatmap below presents descriptive statistics for each variable, including mean, standard deviation, min/max, and quartiles.
 
 ```{python}
 import seaborn as sns
@@ -722,9 +715,9 @@ plt.show()
 
 Because features like BMI and Age have larger numeric values, they can disproportionately influence distance metrics in kNN. This is why feature scaling is essential - it ensures that each feature contributes fairly when calculating similarity.
 
-##### Outliers in Distribution 
+#### Outliers in Distribution 
 
-The boxplot below (Figure 4) further illustrates value distributions and highlights extreme values:
+The boxplot below further illustrates value distributions and highlights extreme values:
 
 ```{python}
 import matplotlib.pyplot as plt
@@ -760,9 +753,9 @@ Outliers can mislead distance calculations, making certain data points appear ab
 
 Applying these transformations ensures the distance metric used in kNN remains balanced and sensitive to meaningful differences across all feature dimensions.
 
-##### Class Imbalance in Diabetes Prevalence
+#### Class Imbalance in Diabetes Prevalence
 
-A critical issue in classification problems is **target class imbalance**. For our `Diabetes_binary` variable, the majority class (No Diabetes) comprises over 86% of the dataset, while the minority class (Diabetes/Prediabetes) represents only about 14%.
+A critical issue in classification problems is *target class imbalance*. For our **Diabetes_binary** variable, the majority class (No Diabetes) comprises over 86% of the dataset, while the minority class (Diabetes/Prediabetes) represents only about 14%.
 
 ```{python}
 def plot_class_distribution():
@@ -792,14 +785,13 @@ def plot_class_distribution():
 plot_class_distribution()
 
 ```
-This imbalance can lead to biased model predictions, favoring the
-dominant class while under-detecting diabetes cases.
+This imbalance can lead to biased model predictions, favoring the dominant class while under-detecting diabetes cases.
 
 To handle this imbalance and improve classification performance, we can apply strategies such as oversampling the minority class (e.g., with SMOTE) or undersampling the majority class. Another effective approach is to use class-weighted algorithms, like setting weights='distance' in KNeighborsClassifier, which has more influence on underrepresented classes during prediction.
 
-##### Correlation Analysis
+#### Correlation Analysis
 
-To better understand how variables relate to each other - and to our target - we generated a correlation heatmap (Figure 6). This helps detect redundant features, multicollinearity, and potential predictors of diabetes.
+To better understand how variables relate to each other - and to our target - we generated a correlation heatmap. This helps detect redundant features, multicollinearity, and potential predictors of diabetes.
 
 ```{python, echo=TRUE, message=FALSE, warning=FALSE}
 
@@ -854,7 +846,7 @@ No pair of features exceeds a correlation of ±0.52, so **multicollinearity is n
 
 These patterns support the need for early interventions and lifestyle-focused health strategies.
 
-##### Age and BMI Density Analysis by Diabetes Status
+#### Age and BMI Density Analysis by Diabetes Status
 
 Body Mass Index (BMI) and age are both recognized as key risk factors for diabetes. To explore these relationships, we compared their distributions between individuals with and without diabetes.
 
@@ -862,9 +854,9 @@ Body Mass Index (BMI) and age are both recognized as key risk factors for diabet
 
 Figure 7 illustrates the distribution of age categories for individuals with and without diabetes. Although age is represented as an ordinal variable (1-13, likely corresponding to increasing age groups), several trends are apparent:
 
-- Individuals with **diabetes or prediabetes** show a **higher density in the upper age categories**, especially around values 10–13.
+- Individuals with *diabetes or prediabetes* show a *higher density in the upper age categories*, especially around values 10–13.
 
-- Conversely, the **non-diabetic group** is more prominent in the mid-range age categories (around 8–11).
+- Conversely, the *non-diabetic group* is more prominent in the mid-range age categories (around 8–11).
 
 - The sharp peaks reflect the ordinal nature of the age variable and the likely grouping into discrete bands.
 
@@ -883,11 +875,11 @@ plt.tight_layout()
 plt.show()
 
 ```
-As expected, the prevalence of diabetes increases with age. This distribution confirms the importance of *age as a predictive feature* and suggests that older adults are at higher risk — aligning with clinical and epidemiological findings.
+As expected, the prevalence of diabetes increases with age. This distribution confirms the importance of *age as a predictive feature* and suggests that older adults are at higher risk - aligning with clinical and epidemiological findings.
 
 **BMI Distribution:**
 
-BMI is a known risk factor for diabetes, and the analysis confirms that individuals with diabetes tend to have slightly higher BMI values on average. The **KDE plot** below (Fugure 8) shows a noticeable rightward shift in BMI values for diabetic individuals.
+BMI is a known risk factor for diabetes, and the analysis confirms that individuals with diabetes tend to have slightly higher BMI values on average. The **KDE plot** below shows a noticeable rightward shift in BMI values for diabetic individuals.
 
 ```{python}
 # Set figure size
@@ -938,7 +930,7 @@ development to enhance predictive performance.
 
 ### Modeling and Results
 
-This section explores the performance of the k-Nearest Neighbors (kNN) algorithm for predicting diabetes using the CDC Behavioral Risk Factor Surveillance System dataset. The primary objective was to evaluate how various modeling choices—such as scaling techniques, distance metrics, SMOTE resampling, feature selection, and hyperparameter tuning—impact classification performance, especially for identifying the minority diabetic class.
+This section explores the performance of the k-Nearest Neighbors (kNN) algorithm for predicting diabetes using the CDC Behavioral Risk Factor Surveillance System dataset. The primary objective was to evaluate how various modeling choices - such as scaling techniques, distance metrics, SMOTE resampling, feature selection, and hyperparameter tuning - impact classification performance, especially for identifying the minority diabetic class.
 
 We tested four distinct kNN configurations, progressively applying different strategies to improve the model:
 
@@ -976,17 +968,39 @@ import textwrap
 
 ```
 
-Preprocessing is a critical step for models like **k-Nearest Neighbors (kNN)**, which rely on distance-based calculations. If features are not properly scaled or class imbalance is not addressed, kNN’s performance—particularly for detecting minority classes—can degrade significantly.
+Preprocessing is a critical step for models like **k-Nearest Neighbors (kNN)**, which rely on distance-based calculations. If features are not properly scaled or class imbalance is not addressed, kNN’s performance - particularly for detecting minority classes - can degrade significantly.
 
 The dataset originally contained 253,680 survey responses with 21 predictor variables and 1 binary outcome (Diabetes_binary). The following preprocessing steps were applied:
 
 ```{python}
-
 import warnings
 warnings.filterwarnings("ignore", category=FutureWarning)
 
 # 1. Remove duplicates
 cdc_df = cdc_data_df.drop_duplicates()
+
+# Define features and target
+X = cdc_df.drop(columns=['Diabetes_binary'])
+y = cdc_df['Diabetes_binary']
+
+# Calculate class distribution
+class_distribution = (y.value_counts(normalize=True) * 100).round(2)
+
+# Print clean output
+print("Class Distribution After Removing Duplicates (%):")
+for label, percent in class_distribution.items():
+    print(f"Class {label}: {percent}%")
+
+```
+
+- **Duplicates Removed:**
+
+A total of 24,206 duplicate rows were dropped to reduce bias and redundancy. This cleanup slightly increased the proportion of the diabetic/prediabetic class - from 13.93% to 15.29% - as duplicates were more prevalent in the majority class.
+
+```{python}
+
+import warnings
+warnings.filterwarnings("ignore", category=FutureWarning)
 
 # 2. Separate features and target
 X = cdc_df.drop(columns=["Diabetes_binary"])
@@ -1012,9 +1026,9 @@ X_train_smote, y_train_smote = SMOTE(random_state=42).fit_resample(X_train, y_tr
 
 ```
 
-- **Duplicates Removed:**
+- **Train-Test Split:**
 
-A total of 24,206 duplicate rows were dropped to reduce bias and redundancy. This cleanup slightly increased the proportion of the diabetic/prediabetic class—from 13.93% to 15.29%—as duplicates were more prevalent in the majority class.
+After removing duplicates, the cleaned dataset was split into a training set (70%) and a test set (30%) using stratified sampling to maintain class proportions. Feature scaling was performed only on the training set prior to SMOTE to preserve correct feature distributions during oversampling. This approach prevented data leakage into the test set and ensured fair model evaluation. 
 
 - **Ordinal Features Retained as Numeric:**
 
@@ -1034,7 +1048,7 @@ The preprocessing pipeline ensured a clean, balanced, and distance-aware feature
 
 **kNN 1: Baseline Model - Imbalanced Data**
 
-As a baseline, we trained a k-Nearest Neighbors (kNN) classifier on the original dataset without addressing class imbalance. The model used standard hyperparameters: 5 neighbors, Euclidean distance (Minkowski, p=2), and uniform weighting.
+As a baseline, we trained a k-Nearest Neighbors (kNN) classifier on the original dataset without addressing class imbalance. The model used standard hyperparameters: 5 neighbors, Euclidean distance (p=2), and uniform weighting.
 
 ```{python}
 
@@ -1087,12 +1101,12 @@ This configuration used k = 15, Manhattan distance (p=1), and distance-based wei
 
 from sklearn.preprocessing import RobustScaler
 
-# Step 1: Scale continuous features using RobustScaler
+# Scale continuous features using RobustScaler
 scaler = RobustScaler()
 X_train_imbal_scaled = scaler.fit_transform(X_train_imbal)
 X_test_imbal_scaled = scaler.transform(X_test_imbal)
 
-# Step 2: Train kNN on imbalanced dataset
+# Train kNN on imbalanced dataset
 knn_scaled_imbalanced = KNeighborsClassifier(
     n_neighbors=15,
     weights='distance',               # Distance-weighted voting
@@ -1101,15 +1115,15 @@ knn_scaled_imbalanced = KNeighborsClassifier(
 )
 knn_scaled_imbalanced.fit(X_train_imbal_scaled, y_train_imbal)
 
-# Step 3: Predictions
+# Predictions
 y_pred_imbal = knn_scaled_imbalanced.predict(X_test_imbal_scaled)
 y_proba_imbal = knn_scaled_imbalanced.predict_proba(X_test_imbal_scaled)[:, 1]
 
-# Step 4: Evaluate
+# Evaluate
 accuracy_imbal = accuracy_score(y_test_imbal, y_pred_imbal)
 roc_auc_imbal = roc_auc_score(y_test_imbal, y_proba_imbal)
 
-# Step 5: Report
+# Report
 report_text = f"""
 kNN (Imbalanced, RobustScaler) - Accuracy: {accuracy_imbal:.4f}
 kNN (Imbalanced, RobustScaler) - ROC-AUC Score: {roc_auc_imbal:.4f}
@@ -1130,6 +1144,7 @@ To directly address class imbalance, the training set was resampled using **SMOT
 This kNN model used a slightly different configuration from the baseline:k = 10 (increased from 5), Euclidean distance (p=2), and uniform weighting. The test set remained unchanged to simulate real-world deployment conditions with natural class imbalance.
 
 ```{python}
+
 # Train kNN model on SMOTE-resampled training set
 knn_smote = KNeighborsClassifier(n_neighbors=10, metric='minkowski', p=2)
 knn_smote.fit(X_train_smote, y_train_smote)
@@ -1155,13 +1170,13 @@ print(report_text_smote)
 ```
 After resampling, the model achieved 69.1% accuracy and a ROC-AUC of 0.73. Most notably, recall for the minority class jumped to 64%, reflecting SMOTE’s effectiveness in improving detection of diabetic cases. 
 
-However, precision dropped to 28%, indicating an increase in false positives — a common trade-off in recall-optimized models.
+However, precision dropped to 28%, indicating an increase in false positives - a common trade-off in recall - optimized models.
 
 **kNN 4: kNN with Feature Selection**
 
 To evaluate whether reducing dimensionality could improve model performance, we applied a **Chi-Square feature selection** technique. This method ranks features by their statistical dependency with the target (Diabetes_binary), helping identify those most relevant for classification.
 
-Based on the scores (shown in Figure 9), the top 12 features were selected for training. These included a mix of continuous and ordinal variables, with continuous features (like BMI, MentHlth, and PhysHlth) scaled using `StandardScaler` when present.
+Based on the scores (shown in Figure 9), the top 12 features were selected for training. These included a mix of continuous and ordinal variables, with continuous features (like BMI, MentHlth, and PhysHlth) scaled using StandardScaler when present.
 
 ```{python}
 
@@ -1238,12 +1253,6 @@ fpr_fs, tpr_fs, _ = roc_curve(y_test_fs, y_proba_fs)
 ```
 This model achieved the best balance between recall and precision, indicating that combining feature selection with SMOTE yielded more stable and accurate classification of diabetic cases.
 
-```{python, echo=FALSE, results='hide', message=FALSE, warning=FALSE}
-import joblib
-# roc curve for slides
-joblib.dump((y_test_fs, y_proba_fs), "knn_fs_roc_data.pkl")
-
-```
 #### Comparison of kNN Models with Different Configurations
 
 The first phase of model evaluation focused exclusively on optimizing the k-Nearest Neighbors (kNN) algorithm. Four versions of kNN were trained with varying configurations, including distance metrics, weighting strategies, feature scaling techniques, and class balancing using SMOTE. 
@@ -1448,9 +1457,7 @@ From the comparison:
 
 - The *non-resampled Decision Tree and Random Forest* models performed well on accuracy and recall for the majority class (non-diabetic), but severely underperformed on recall for diabetic cases (15% and 13%, respectively).
 
-These findings highlight the importance of targeted preprocessing and algorithm tuning when addressing imbalanced healthcare data — especially when the priority is to detect rare but critical conditions like diabetes.
-
-#### ROC_AUC curves comparison
+These findings highlight the importance of targeted preprocessing and algorithm tuning when addressing imbalanced healthcare data - especially when the priority is to detect rare but critical conditions like diabetes.
 
 ```{python, echo=FALSE}
 

@@ -30,7 +30,7 @@ editor:
 ## Introduction {.center}
 
 In healthcare, kNN has shown promise in predicting chronic diseases like
-**diabetes** and **hypertension**.
+**diabetes** [@suriya2023type] and **hypertension** [@khateeb2017efficient].
 
 In this project, we focus on how kNN can be applied and optimized to
 predict **diabetes**, a critical and growing public health issue.
@@ -100,7 +100,7 @@ We then compared the best kNN’s performance with decision trees and random for
 
 <span class="fragment">It is a **lazy learner** — no explicit training phase is required</span>
 
-<span class="fragment">Instead, it classifies new data based on similarity to existing labeled points</span>
+<span class="fragment">Instead, it classifies new data based on similarity to existing labeled points [@zhang2016introduction]</span>
 
 ---
 
@@ -132,7 +132,7 @@ kNN identifies the nearest neighbors by calculating distances between points.
 
 <div class="fragment">
 
-**Euclidean distance:**  
+**Euclidean distance:**  [@theerthagiri2022diagnosis]
 $$
 d = \sqrt{(X_2 - X_1)^2 + (Y_2 - Y_1)^2}
 $$
@@ -141,7 +141,7 @@ $$
 
 <div class="fragment">
 
-**Manhattan distance:**  
+**Manhattan distance:** [@aggarwal2015data] 
 $$
 d = |X_2 - X_1| + |Y_2 - Y_1|
 $$
@@ -240,8 +240,8 @@ This simple majority voting process makes kNN easy to understand and explain - a
 
 ### Weaknesses of kNN 
 
-- **Slow prediction time** on large datasets due to distance calculations  
-- **Sensitive to feature scaling and distance metric choice**  
+- **Slow prediction time** on large datasets due to distance calculations [@deng2016efficient] 
+- **Sensitive to feature scaling and distance metric choice** [@uddin2022comparative] 
 - **Choosing the right 'k'** is critical — too low or high can reduce performance  
 - **Affected by irrelevant or correlated features**, which may distort neighbor similarity
 
@@ -259,7 +259,8 @@ That’s why preprocessing and tuning are so important - especially in healthcar
 
 ### Data Source and Collection {.smaller}
 
-**Data Source:** CDC Diabetes Health Indicators
+**Data Source:** [CDC Diabetes Health
+Indicators](https://archive.ics.uci.edu/dataset/891/cdc+diabetes+health+indicators.) 
 
 Collected via the CDC’s Behavioral Risk Factor Surveillance System
 (BRFSS)
@@ -510,37 +511,5 @@ Despite being simple, it handled the diabetes prediction task very well - especi
 :::
 
 ## References {.smaller .scrollable}
-
-Ali, AMEER, MOHAMMED Alrubei, LF Mohammed Hassan, M Al-Ja’afari, and Saif Abdulwahed. 2020. “Diabetes Classification Based on KNN.” IIUM Engineering Journal 21 (1): 175–81.
-
-Altamimi, Abdulaziz, Aisha Ahmed Alarfaj, Muhammad Umer, Ebtisam Abdullah Alabdulqader, Shtwai Alsubai, Tai-hoon Kim, and Imran Ashraf. 2024. “An Automated Approach to Predict Diabetic Patients Using KNN Imputation and Effective Data Mining Techniques.” BMC Medical Research Methodology 24 (1): 221.
-
-Boateng, Emmanuel B. 2020. “Basic Concept of Classification Algorithms for Machine Learning.” ResearchGate. https://doi.org/10.13140/RG.2.2.23226.08648.
-
-Deng, Zhenyun, Xiaoshu Zhu, Debo Cheng, Ming Zong, and Shichao Zhang. 2016. “Efficient kNN Classification Algorithm for Big Data.” Neurocomputing 195: 143–48.
-
-Iparraguirre-Villanueva, Orlando, Karina Espinola-Linares, Rosalynn Ornella Flores Castañeda, and Michael Cabanillas-Carbonell. 2023. “Application of Machine Learning Models for Early Detection and Accurate Classification of Type 2 Diabetes.” Diagnostics 13 (14): 2383.
-
-Kataria, Aman, and MD Singh. 2013. “A Review of Data Classification Using k-Nearest Neighbour Algorithm.” International Journal of Emerging Technology and Advanced Engineering 3 (6): 354–60.
-
-Khateeb, Nida, and Muhammad Usman. 2017. “Efficient Heart Disease Prediction System Using k-Nearest Neighbor Classification Technique.” In Proceedings of the International Conference on Big Data and Internet of Thing, 21–26.
-
-Mucherino, Antonio, Petraq J Papajorgji, Panos M Pardalos, Antonio Mucherino, Petraq J Papajorgji, and Panos M Pardalos. 2009. “K-Nearest Neighbor Classification.” Data Mining in Agriculture, 83–106.
-
-Panwar, Madhuri, Amit Acharyya, Rishad A Shafik, and Dwaipayan Biswas. 2016. “K-Nearest Neighbor Based Methodology for Accurate Diagnosis of Diabetes Mellitus.” In 2016 Sixth International Symposium on Embedded Computing and System Design (ISED), 132–36. IEEE.
-
-Saxena, Krati, Zubair Khan, and Shefali Singh. 2014. “Diagnosis of Diabetes Mellitus Using k Nearest Neighbor Algorithm.” International Journal of Computer Science Trends and Technology (IJCST) 2 (4): 36–43.
-
-Suriya, S, and J Joanish Muthu. 2023. “Type 2 Diabetes Prediction Using k-Nearest Neighbor Algorithm.” Journal of Trends in Computer Science and Smart Technology 5 (2): 190–205.
-
-Syriopoulos, Panos K, Nektarios G Kalampalikis, Sotiris B Kotsiantis, and Michael N Vrahatis. 2023. “K NN Classification: A Review.” Annals of Mathematics and Artificial Intelligence, 1–33.
-
-Theerthagiri, Prasannavenkatesan, A Usha Ruby, and J Vidya. 2022. “Diagnosis and Classification of the Diabetes Using Machine Learning Algorithms.” SN Computer Science 4 (1): 72.
-
-Uddin, Shahadat, Ibtisham Haque, Haohui Lu, Mohammad Ali Moni, and Ergun Gide. 2022. “Comparative Performance Analysis of k-Nearest Neighbour (KNN) Algorithm and Its Different Variants for Disease Prediction.” Scientific Reports 12 (1): 6256.
-
-Zhang, Shichao, Xuelong Li, Ming Zong, Xiaofeng Zhu, and Ruili Wang. 2017. “Efficient kNN Classification with Different Numbers of Nearest Neighbors.” IEEE Transactions on Neural Networks and Learning Systems 29 (5): 1774–85.
-
-Zhang, Zhongheng. 2016. “Introduction to Machine Learning: K-Nearest Neighbors.” Annals of Translational Medicine 4 (11).
 
 

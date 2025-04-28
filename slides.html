@@ -11,7 +11,7 @@
   <meta name="generator" content="quarto-1.3.361">
 
   <meta name="author" content="Elena Boiko, Jacqueline Razo (Advisor: Dr.&nbsp;Cohen)">
-  <meta name="dcterms.date" content="2025-04-24">
+  <meta name="dcterms.date" content="2025-04-26">
   <title>Diagnosing Diseases Using kNN</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -30,7 +30,26 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
-  </style>
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
   <link rel="stylesheet" href="slides_files/libs/revealjs/dist/theme/quarto.css">
   <link href="slides_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="slides_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
@@ -338,11 +357,11 @@ Elena Boiko, Jacqueline Razo (Advisor: Dr.&nbsp;Cohen)
 </div>
 </div>
 
-  <p class="date">2025-04-24</p>
+  <p class="date">2025-04-26</p>
 </section>
 <section id="introduction" class="slide level2 center">
 <h2>Introduction</h2>
-<p>In healthcare, kNN has shown promise in predicting chronic diseases like <strong>diabetes</strong> and <strong>hypertension</strong>.</p>
+<p>In healthcare, kNN has shown promise in predicting chronic diseases like <strong>diabetes</strong> <span class="citation" data-cites="suriya2023type">(<a href="#/references" role="doc-biblioref" onclick="">Suriya and Muthu 2023</a>)</span> and <strong>hypertension</strong> <span class="citation" data-cites="khateeb2017efficient">(<a href="#/references" role="doc-biblioref" onclick="">Khateeb and Usman 2017</a>)</span>.</p>
 <p>In this project, we focus on how kNN can be applied and optimized to predict <strong>diabetes</strong>, a critical and growing public health issue.</p>
 <aside class="notes">
 <p>kNN is a well-known algorithm that’s already been applied in medical research, including disease prediction for conditions like hypertension and diabetes. In this project, we explored how kNN behaves with health data and how we can optimize it to improve predictive accuracy for diabetes.</p>
@@ -424,7 +443,7 @@ Elena Boiko, Jacqueline Razo (Advisor: Dr.&nbsp;Cohen)
 <h2>Method: kNN Overview</h2>
 <p><span class="fragment">k-Nearest Neighbors (kNN) is a <strong>non-parametric, instance-based</strong> learning algorithm</span></p>
 <p><span class="fragment">It is a <strong>lazy learner</strong> — no explicit training phase is required</span></p>
-<p><span class="fragment">Instead, it classifies new data based on similarity to existing labeled points</span></p>
+<p><span class="fragment">Instead, it classifies new data based on similarity to existing labeled points <span class="citation" data-cites="zhang2016introduction">(<a href="#/references" role="doc-biblioref" onclick="">Zhang 2016</a>)</span></span></p>
 </section>
 <section class="slide level2">
 
@@ -454,14 +473,12 @@ The most frequent class among the <strong>k nearest neighbors</strong> determine
 <h2>Distance Calculation:</h2>
 <p>kNN identifies the nearest neighbors by calculating distances between points.</p>
 <div class="fragment">
-<p><strong>Euclidean distance:</strong><br>
-<span class="math display">\[
+<p><strong>Euclidean distance:</strong> <span class="citation" data-cites="theerthagiri2022diagnosis">(<a href="#/references" role="doc-biblioref" onclick="">Theerthagiri, Ruby, and Vidya 2022</a>)</span> <span class="math display">\[
 d = \sqrt{(X_2 - X_1)^2 + (Y_2 - Y_1)^2}
 \]</span></p>
 </div>
 <div class="fragment">
-<p><strong>Manhattan distance:</strong><br>
-<span class="math display">\[
+<p><strong>Manhattan distance:</strong> <span class="citation" data-cites="aggarwal2015data">(<a href="#/references" role="doc-biblioref" onclick="">Aggarwal et al. 2015</a>)</span> <span class="math display">\[
 d = |X_2 - X_1| + |Y_2 - Y_1|
 \]</span></p>
 </div>
@@ -531,10 +548,8 @@ d = |X_2 - X_1| + |Y_2 - Y_1|
 </div><div class="column" style="width:50%;">
 <h3 id="weaknesses-of-knn">Weaknesses of kNN</h3>
 <ul>
-<li><strong>Slow prediction time</strong> on large datasets due to distance calculations<br>
-</li>
-<li><strong>Sensitive to feature scaling and distance metric choice</strong><br>
-</li>
+<li><strong>Slow prediction time</strong> on large datasets due to distance calculations <span class="citation" data-cites="deng2016efficient">(<a href="#/references" role="doc-biblioref" onclick="">Deng et al. 2016</a>)</span></li>
+<li><strong>Sensitive to feature scaling and distance metric choice</strong> <span class="citation" data-cites="uddin2022comparative">(<a href="#/references" role="doc-biblioref" onclick="">Uddin et al. 2022</a>)</span></li>
 <li><strong>Choosing the right ‘k’</strong> is critical — too low or high can reduce performance<br>
 </li>
 <li><strong>Affected by irrelevant or correlated features</strong>, which may distort neighbor similarity</li>
@@ -558,7 +573,7 @@ d = |X_2 - X_1| + |Y_2 - Y_1|
 <section id="analysis-and-results" class="slide level2">
 <h2>Analysis and Results</h2>
 <h3 class="smaller" id="data-source-and-collection">Data Source and Collection</h3>
-<p><strong>Data Source:</strong> CDC Diabetes Health Indicators</p>
+<p><strong>Data Source:</strong> <a href="https://archive.ics.uci.edu/dataset/891/cdc+diabetes+health+indicators.">CDC Diabetes Health Indicators</a></p>
 <p>Collected via the CDC’s Behavioral Risk Factor Surveillance System (BRFSS)</p>
 <p>Dataset contains 253,680 survey responses</p>
 <p>Covers 21 features: demographics, lifestyle, healthcare, and health history</p>
@@ -994,24 +1009,31 @@ kNN with Feature Selection performs best (AUC = 0.88), followed by Random Forest
 </section>
 <section id="references" class="slide level2 smaller scrollable">
 <h2>References</h2>
-<p>Ali, AMEER, MOHAMMED Alrubei, LF Mohammed Hassan, M Al-Ja’afari, and Saif Abdulwahed. 2020. “Diabetes Classification Based on KNN.” IIUM Engineering Journal 21 (1): 175–81.</p>
-<p>Altamimi, Abdulaziz, Aisha Ahmed Alarfaj, Muhammad Umer, Ebtisam Abdullah Alabdulqader, Shtwai Alsubai, Tai-hoon Kim, and Imran Ashraf. 2024. “An Automated Approach to Predict Diabetic Patients Using KNN Imputation and Effective Data Mining Techniques.” BMC Medical Research Methodology 24 (1): 221.</p>
-<p>Boateng, Emmanuel B. 2020. “Basic Concept of Classification Algorithms for Machine Learning.” ResearchGate. https://doi.org/10.13140/RG.2.2.23226.08648.</p>
-<p>Deng, Zhenyun, Xiaoshu Zhu, Debo Cheng, Ming Zong, and Shichao Zhang. 2016. “Efficient kNN Classification Algorithm for Big Data.” Neurocomputing 195: 143–48.</p>
-<p>Iparraguirre-Villanueva, Orlando, Karina Espinola-Linares, Rosalynn Ornella Flores Castañeda, and Michael Cabanillas-Carbonell. 2023. “Application of Machine Learning Models for Early Detection and Accurate Classification of Type 2 Diabetes.” Diagnostics 13 (14): 2383.</p>
-<p>Kataria, Aman, and MD Singh. 2013. “A Review of Data Classification Using k-Nearest Neighbour Algorithm.” International Journal of Emerging Technology and Advanced Engineering 3 (6): 354–60.</p>
-<p>Khateeb, Nida, and Muhammad Usman. 2017. “Efficient Heart Disease Prediction System Using k-Nearest Neighbor Classification Technique.” In Proceedings of the International Conference on Big Data and Internet of Thing, 21–26.</p>
-<p>Mucherino, Antonio, Petraq J Papajorgji, Panos M Pardalos, Antonio Mucherino, Petraq J Papajorgji, and Panos M Pardalos. 2009. “K-Nearest Neighbor Classification.” Data Mining in Agriculture, 83–106.</p>
-<p>Panwar, Madhuri, Amit Acharyya, Rishad A Shafik, and Dwaipayan Biswas. 2016. “K-Nearest Neighbor Based Methodology for Accurate Diagnosis of Diabetes Mellitus.” In 2016 Sixth International Symposium on Embedded Computing and System Design (ISED), 132–36. IEEE.</p>
-<p>Saxena, Krati, Zubair Khan, and Shefali Singh. 2014. “Diagnosis of Diabetes Mellitus Using k Nearest Neighbor Algorithm.” International Journal of Computer Science Trends and Technology (IJCST) 2 (4): 36–43.</p>
-<p>Suriya, S, and J Joanish Muthu. 2023. “Type 2 Diabetes Prediction Using k-Nearest Neighbor Algorithm.” Journal of Trends in Computer Science and Smart Technology 5 (2): 190–205.</p>
-<p>Syriopoulos, Panos K, Nektarios G Kalampalikis, Sotiris B Kotsiantis, and Michael N Vrahatis. 2023. “K NN Classification: A Review.” Annals of Mathematics and Artificial Intelligence, 1–33.</p>
-<p>Theerthagiri, Prasannavenkatesan, A Usha Ruby, and J Vidya. 2022. “Diagnosis and Classification of the Diabetes Using Machine Learning Algorithms.” SN Computer Science 4 (1): 72.</p>
-<p>Uddin, Shahadat, Ibtisham Haque, Haohui Lu, Mohammad Ali Moni, and Ergun Gide. 2022. “Comparative Performance Analysis of k-Nearest Neighbour (KNN) Algorithm and Its Different Variants for Disease Prediction.” Scientific Reports 12 (1): 6256.</p>
-<p>Zhang, Shichao, Xuelong Li, Ming Zong, Xiaofeng Zhu, and Ruili Wang. 2017. “Efficient kNN Classification with Different Numbers of Nearest Neighbors.” IEEE Transactions on Neural Networks and Learning Systems 29 (5): 1774–85.</p>
-<p>Zhang, Zhongheng. 2016. “Introduction to Machine Learning: K-Nearest Neighbors.” Annals of Translational Medicine 4 (11).</p>
 <div class="footer footer-default">
 
+</div>
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-aggarwal2015data" class="csl-entry" role="listitem">
+Aggarwal, Charu C et al. 2015. <em>Data Mining: The Textbook</em>. Vol. 1. 3. Springer.
+</div>
+<div id="ref-deng2016efficient" class="csl-entry" role="listitem">
+Deng, Zhenyun, Xiaoshu Zhu, Debo Cheng, Ming Zong, and Shichao Zhang. 2016. <span>“Efficient kNN Classification Algorithm for Big Data.”</span> <em>Neurocomputing</em> 195: 143–48.
+</div>
+<div id="ref-khateeb2017efficient" class="csl-entry" role="listitem">
+Khateeb, Nida, and Muhammad Usman. 2017. <span>“Efficient Heart Disease Prediction System Using k-Nearest Neighbor Classification Technique.”</span> In <em>Proceedings of the International Conference on Big Data and Internet of Thing</em>, 21–26.
+</div>
+<div id="ref-suriya2023type" class="csl-entry" role="listitem">
+Suriya, S, and J Joanish Muthu. 2023. <span>“Type 2 Diabetes Prediction Using k-Nearest Neighbor Algorithm.”</span> <em>Journal of Trends in Computer Science and Smart Technology</em> 5 (2): 190–205.
+</div>
+<div id="ref-theerthagiri2022diagnosis" class="csl-entry" role="listitem">
+Theerthagiri, Prasannavenkatesan, A Usha Ruby, and J Vidya. 2022. <span>“Diagnosis and Classification of the Diabetes Using Machine Learning Algorithms.”</span> <em>SN Computer Science</em> 4 (1): 72.
+</div>
+<div id="ref-uddin2022comparative" class="csl-entry" role="listitem">
+Uddin, Shahadat, Ibtisham Haque, Haohui Lu, Mohammad Ali Moni, and Ergun Gide. 2022. <span>“Comparative Performance Analysis of k-Nearest Neighbour (KNN) Algorithm and Its Different Variants for Disease Prediction.”</span> <em>Scientific Reports</em> 12 (1): 6256.
+</div>
+<div id="ref-zhang2016introduction" class="csl-entry" role="listitem">
+Zhang, Zhongheng. 2016. <span>“Introduction to Machine Learning: K-Nearest Neighbors.”</span> <em>Annals of Translational Medicine</em> 4 (11).
+</div>
 </div>
 </section>
     </div>
