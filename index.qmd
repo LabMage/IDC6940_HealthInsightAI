@@ -1512,6 +1512,8 @@ plt.savefig("roc_curve.png", dpi=300, bbox_inches="tight")
 plt.close()
 ```
 
+The ROC curve demonstrates the ability of each model to distinguish diabetic from non-diabetic cases. The kNN model with SMOTE and feature selection achieved the highest AUC value of 0.88 which demonstrated superior performance in distinguishing between diabetic and non-diabetic cases. Random Forest and Decision Tree performed reasonably well, but neither matched kNN in class separation. These results support the conclusion that a carefully tuned kNN model can offer both strong predictive accuracy and clinical utility.
+
 ## Conclusion
 
 This project investigated the behavior and performance of the k-Nearest Neighbors (kNN) algorithm for classifying diabetes using a real-world health dataset of over 253,000 observations. The focus  was not only on achieving high accuracy, but on evaluating how model configuration, preprocessing, and resampling affect kNN’s ability to detect the minority (diabetic) class - critical in healthcare contexts where false negatives carry significant risk.
