@@ -524,7 +524,7 @@ cdc_data_df.to_csv("cdc_data.csv", index=False)
 
 The dataset consists of **253,680** survey responses collected through the CDC Behavioral Risk Factor Surveillance System (BRFSS). It includes:
 
-- **1 binary target variable**: `Diabetes_binary`  
+- **1 binary target variable**: Diabetes_binary  
 - **21 explanatory features** covering demographics, health conditions, lifestyle habits, and healthcare access.
 
 This large-scale dataset is well-suited for modeling diabetes risk, providing a mix of binary, ordinal, and continuous variables.
@@ -549,7 +549,7 @@ The variables fall into *four types*, each encoded to preserve meaning and suppo
 - *Diabetes_binary*: Binary classification (0 = No diabetes, 1 = Diabetes/prediabetes)
 
 **2. Binary Variables (14)**  
-Encoded as 0 = No, 1 = Yes (except for `Sex`: 0 = Female, 1 = Male) 
+Encoded as 0 = No, 1 = Yes (except for Sex: 0 = Female, 1 = Male) 
 
 - *Health Conditions*: HighBP, HighChol, CholCheck, Stroke, HeartDiseaseorAttack 
 
@@ -682,7 +682,7 @@ df_stats = cdc_data_df.describe()
 print(df_stats)
 
 ```
-**Figures 3** and **4** summarize the central tendencies and distributional characteristics of selected **ordinal** and **continuous** variables: *GenHlth, MentHlth, PhysHlth, Age, Education, Income, BMI*
+Figures 3 and 4 summarize the central tendencies and distributional characteristics of selected *ordinal* and *continuous* variables: *GenHlth, MentHlth, PhysHlth, Age, Education, Income, BMI*
 
 #### Summary Statistics Heatmap
 
@@ -743,7 +743,7 @@ plt.show()
 
 Outliers can mislead distance calculations, making certain data points appear abnormally close or far in feature space.
 
-**Practical Steps for Preprocessing:**: 
+**Practical Steps for Preprocessing:** 
 
 | Problem         | Solution                                          |
 |-----------------|---------------------------------------------------|
@@ -848,7 +848,7 @@ These patterns support the need for early interventions and lifestyle-focused he
 
 #### Age and BMI Density Analysis by Diabetes Status
 
-Body Mass Index (BMI) and age are both recognized as key risk factors for diabetes. To explore these relationships, we compared their distributions between individuals with and without diabetes.
+Age and Body Mass Index (BMI) are both recognized as key risk factors for diabetes. To explore these relationships, we compared their distributions between individuals with and without diabetes.
 
 **Age Distribution:**
 
@@ -968,7 +968,7 @@ import textwrap
 
 ```
 
-Preprocessing is a critical step for models like **k-Nearest Neighbors (kNN)**, which rely on distance-based calculations. If features are not properly scaled or class imbalance is not addressed, kNN’s performance - particularly for detecting minority classes - can degrade significantly.
+Preprocessing is a critical step for models like k-Nearest Neighbors (kNN), which rely on distance-based calculations. If features are not properly scaled or class imbalance is not addressed, kNN’s performance - particularly for detecting minority classes - can degrade significantly.
 
 The dataset originally contained 253,680 survey responses with 21 predictor variables and 1 binary outcome (Diabetes_binary). The following preprocessing steps were applied:
 
@@ -1141,7 +1141,7 @@ Compared to the baseline, this model showed slightly improved accuracy (84.1%) a
 
 To directly address class imbalance, the training set was resampled using **SMOTE (Synthetic Minority Over-sampling Technique)**, which creates synthetic samples for the minority class, resulting in a balanced 50/50 distribution.
 
-This kNN model used a slightly different configuration from the baseline:k = 10 (increased from 5), Euclidean distance (p=2), and uniform weighting. The test set remained unchanged to simulate real-world deployment conditions with natural class imbalance.
+This kNN model used a slightly different configuration from the baseline: k = 10 (increased from 5), Euclidean distance (p=2), and uniform weighting. The test set remained unchanged to simulate real-world deployment conditions with natural class imbalance.
 
 ```{python}
 
@@ -1240,7 +1240,7 @@ roc_auc = roc_auc_score(y_test_fs, y_proba_fs)
 # Build report
 report_text_fs = f"""
 kNN (Chi² + SMOTE, Top 12 Features) - Accuracy: {accuracy:.4f}
-KNN (Chi² + SMOTE, Top 12 Features) - ROC-AUC Score: {roc_auc:.4f}
+kNN (Chi² + SMOTE, Top 12 Features) - ROC-AUC Score: {roc_auc:.4f}
 
 Classification Report (Test Set):
 {classification_report(y_test_fs, y_pred_fs)}
@@ -1377,7 +1377,7 @@ print(report_text_dt_sm)
 fpr_dt_sm, tpr_dt_sm, _ = roc_curve(y_test_sm, y_proba_dt_sm)
  
 ```
-SMOTE significantly improved the model’s ability to identify diabetic cases, as reflected in the jump in recall. While overall accuracy dropped slightly (from 86.2% to 75.6%), this trade-off is often acceptable in medical contexts where minimizing false negatives is critical.
+SMOTE significantly improved the model’s ability to identify diabetic cases, as reflected in the jump in recall. While overall accuracy dropped slightly (from 86.2% to 72.5%), this trade-off is often acceptable in medical contexts where minimizing false negatives is critical.
 
 **Random Forest – Imbalanced Dataset**
 
@@ -1453,7 +1453,7 @@ From the comparison:
 
 - *kNN with Feature Selection and SMOTE* achieved the highest ROC-AUC (0.88) and recall for the diabetic class (88%), striking the best balance between sensitivity and precision.
 
-- *Decision Tree with SMOTE* also showed solid recall (78%), but lower AUC and overall accuracy.
+- *Decision Tree with SMOTE* also showed solid recall (78%), but lower AUC (0.80) and overall accuracy.
 
 - The *non-resampled Decision Tree and Random Forest* models performed well on accuracy and recall for the majority class (non-diabetic), but severely underperformed on recall for diabetic cases (15% and 13%, respectively).
 
@@ -1514,9 +1514,9 @@ plt.close()
 
 ## Conclusion
 
-This project investigated the behavior and performance of the k-Nearest Neighbors (kNN) algorithm for classifying diabetes using a real-world health dataset of over 253,000 observations. The focus  was not only on achieving high accuracy, but on evaluating how model configuration, preprocessing, and resampling affect kNN’s ability to detect the minority (diabetic) class—critical in healthcare contexts where false negatives carry significant risk.
+This project investigated the behavior and performance of the k-Nearest Neighbors (kNN) algorithm for classifying diabetes using a real-world health dataset of over 253,000 observations. The focus  was not only on achieving high accuracy, but on evaluating how model configuration, preprocessing, and resampling affect kNN’s ability to detect the minority (diabetic) class - critical in healthcare contexts where false negatives carry significant risk.
 
-We explored four kNN variations, altering hyperparameters (k, distance metric), scaling techniques, and class balancing via SMOTE. Among these, Model 4—which combined SMOTE, Chi-Square feature selection, and distance-weighted voting—emerged as the best configuration. It achieved a strong balance between accuracy (78%), ROC-AUC (0.88), and recall for diabetic cases (0.88), outperforming all other kNN models. Increasing the value of k improved model stability and performance, which is especially beneficial when working with large datasets like ours, where higher k helps smooth out noise and reduce variance in predictions.
+We explored four kNN variations, altering hyperparameters (k, distance metric), scaling techniques, and class balancing via SMOTE. Among these, Model 4 - which combined SMOTE, Chi-Square feature selection, and distance-weighted voting - emerged as the best configuration. It achieved a strong balance between accuracy (78%), ROC-AUC (0.88), and recall for diabetic cases (0.88), outperforming all other kNN models. Increasing the value of k improved model stability and performance, which is especially beneficial when working with large datasets like ours, where higher k helps smooth out noise and reduce variance in predictions.
 
 To contextualize its performance, the best kNN model was compared to two tree-based classifiers: Decision Tree (DT) and Random Forest (RF). While RF achieved slightly higher overall accuracy (87%) on the imbalanced dataset, its recall for the diabetic class was just 13%, indicating poor sensitivity to minority cases. Similarly, DT models showed higher accuracy but struggled to match the recall and ROC-AUC of the tuned kNN. Only Decision Tree trained on SMOTE approached comparable recall levels (78%) but still lagged behind kNN in ROC-AUC (0.80 vs. 0.88). 
 
