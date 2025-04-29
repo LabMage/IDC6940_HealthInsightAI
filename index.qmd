@@ -449,8 +449,8 @@ needs it.
 In order to increase the accuracy of the model there are a few
 parameters that we can adjust.
 
-1.  Find the optimal k parameter: We can use gridsearch to find the best
-    parameter k.
+1.  Find the optimal k parameter: We manually tested several k values and 
+    selected the one that provided the best balance of performance metrics
 2.  Change the distance metric: The kNN uses the euclidean distance by
     default but we can use the Manhattan distance, or another distance.
 3.  Weights: The kNN defaults to a "uniform" weight where it gives the
@@ -709,11 +709,13 @@ plt.show()
 ```
 - **BMI** stands out with the largest range (min = 12.0, max = 98.0) and highest standard deviation (6.6)  - indicating significant variability.
 
+- **MentHlth** and **PhysHlth** also show wide spreads (standard deviations of 7.4 and 8.7, respectively), reinforcing the need for scaling to prevent these features from dominating distance calculations.
+
 - **Age** also shows moderate variability (std = 3.1), which may impact distance calculations if not scaled.
 
 - **Ordinal features** like GenHlth, Education, and Income are on a much smaller scale (e.g., GenHlth: 1-5), which may cause them to be underweighted unless scaling is applied.
 
-Because features like BMI and Age have larger numeric values, they can disproportionately influence distance metrics in kNN. This is why feature scaling is essential - it ensures that each feature contributes fairly when calculating similarity.
+Because features like BMI, MentHlth, PhysHlth, and Age have larger numeric ranges, they can disproportionately influence distance metrics in kNN. This is why feature scaling is essential - it ensures that each feature contributes fairly when calculating similarity.
 
 #### Outliers in Distribution 
 
@@ -745,11 +747,11 @@ Outliers can mislead distance calculations, making certain data points appear ab
 
 **Practical Steps for Preprocessing:** 
 
-| Problem         | Solution                                          |
-|-----------------|---------------------------------------------------|
-| Scale imbalance | StandardScaler / MinMaxScaler                     |
-| Outliers        | RobustScaler / Clipping / Removal                 |
-| Skewed features | Consider log or square root transform (if needed) |
+| Problem         | Solution                               |
+|-----------------|----------------------------------------|
+| Scale imbalance | StandardScaler / MinMaxScaler          |
+| Outliers        | RobustScaler / Clipping / Removal      |
+| Skewed features | Consider log or square root transform  |
 
 Applying these transformations ensures the distance metric used in kNN remains balanced and sensitive to meaningful differences across all feature dimensions.
 
@@ -987,9 +989,10 @@ y = cdc_df['Diabetes_binary']
 class_distribution = (y.value_counts(normalize=True) * 100).round(2)
 
 # Print clean output
-print("Class Distribution After Removing Duplicates (%):")
-for label, percent in class_distribution.items():
-    print(f"Class {label}: {percent}%")
+print(
+    "Class Distribution After Removing Duplicates (%):\n" +
+    "\n".join([f"Class {label}: {percent:.2f}%" for label, percent in class_distribution.items()])
+)
 
 ```
 
@@ -1032,7 +1035,7 @@ After removing duplicates, the cleaned dataset was split into a training set (70
 
 - **Ordinal Features Retained as Numeric:**
 
-Variables such as Age, Education, Income, and GenHlth were preserved in their original numeric form due to their natural ordinal structure. Converting th   em to one-hot encoding would have removed meaningful ordering between categories (e.g., income levels or education attainment).
+Variables such as Age, Education, Income, and GenHlth were preserved in their original numeric form due to their natural ordinal structure. Converting them to one-hot encoding would have removed meaningful ordering between categories (e.g., income levels or education attainment).
 
 - **Continuous Features Scaled:**
 
@@ -1074,7 +1077,7 @@ y_proba_imbal = knn_imbal.predict_proba(X_test_imbal_scaled)[:, 1]
 accuracy_imbal = accuracy_score(y_test_imbal, y_pred_imbal)
 roc_auc_imbal = roc_auc_score(y_test_imbal, y_proba_imbal)
 
-# Build classification report
+# Build classification report 
 report_text = f"""
 KNN (Imbalanced Data) - Accuracy: {accuracy_imbal:.4f}
 KNN (Imbalanced Data) - ROC-AUC Score: {roc_auc_imbal:.4f}
